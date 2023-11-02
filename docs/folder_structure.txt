@@ -1,0 +1,46 @@
+M:\dev_env\web_scraping
+├── .gitignore
+├── LICENSE
+├── README.md
+├── admin
+│   └── create_folder_structure.py
+├── data
+│   ├── links
+│   │   ├── bulbapedia.bulbagarden.net-1.txt
+│   │   ├── bulbapedia.bulbagarden.net-2.txt
+│   │   ├── bulbapedia.bulbagarden.net-3.txt
+│   │   ├── bulbapedia.bulbagarden.net-4.txt
+│   │   ├── bulbapedia.bulbagarden.net-5.txt
+│   │   ├── bulbapedia.bulbagarden.net-6.txt
+│   │   ├── bulbapedia.bulbagarden.net-7.txt
+│   │   └── bulbapedia.bulbagarden.net-8.txt
+│   ├── preprocessed_data
+│   │   ├── bulbapedia.bulbagarden.net-1.txt
+│   │   ├── bulbapedia.bulbagarden.net-2.txt
+│   │   ├── bulbapedia.bulbagarden.net-3.txt
+│   │   └── bulbapedia.bulbagarden.net-4.txt
+│   └── raw_data
+│       ├── bulbapedia.bulbagarden.net-1.txt
+│       ├── bulbapedia.bulbagarden.net-10.txt
+│       ├── bulbapedia.bulbagarden.net-2.txt
+│       ├── bulbapedia.bulbagarden.net-3.txt
+│       ├── bulbapedia.bulbagarden.net-4.txt
+│       ├── bulbapedia.bulbagarden.net-5.txt
+│       ├── bulbapedia.bulbagarden.net-6.txt
+│       ├── bulbapedia.bulbagarden.net-7.txt
+│       ├── bulbapedia.bulbagarden.net-8.txt
+│       └── bulbapedia.bulbagarden.net-9.txt
+├── docs
+│   ├── description_for_ai.txt
+│   └── folder_structure.txt
+├── src
+│   ├── common
+│   │   ├── file_utils.py
+│   │   ├── text_preprocessing.py
+│   │   └── web_utils.py
+│   ├── main.py
+│   └── web_ui.py
+└── templates
+    └── home.html
+
+Script last modified: 2023-11-01 16:21:57

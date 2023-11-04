@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Web Scraping Application</title>
 </head>
@@ -7,16 +7,16 @@
     <h1>Web Scraping Application</h1>
 
     <form method="POST" action="/">
-        <label for="website_url">Website URL:</label>
-        <input type="text" id="website_url" name="website_url" required>
-        <br>
-        <input type="checkbox" id="scrape_text" name="scrape_text">
-        <label for="scrape_text">Scrape Text</label>
-        <br>
-        <input type="checkbox" id="scrape_links" name="scrape_links">
-        <label for="scrape_links">Scrape Links</label>
-        <br>
-        <input type="submit" value="Scrape">
+        <fieldset>
+            <legend>Scrape Options</legend>
+            <label for="website_url">Website URL:</label>
+            <input type="text" id="website_url" name="website_url" required>
+            <br>
+            <input type="checkbox" id="scrape_text" name="scrape_text">
+            <label for="scrape_text">Scrape Text</label>
+            <br>
+        </fieldset>
+        <button type="submit">Scrape</button>
     </form>
 
 </body>

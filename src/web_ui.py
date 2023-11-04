@@ -1,65 +1,83 @@
-#\src\web_ui.py
+# \src\web_ui.py
 
 import os
+import threading
 import webbrowser
-from flask import Flask, render_template, request, redirect
-from common.file_utils import create_directory, find_unique_file_name, save_text_to_file, save_links_to_file
-from common.web_utils import send_get_request, parse_html, extract_text, extract_links, get_website_name
+from urllib.parse import urlsplit
+from flask import Flask, request, redirect, render_template_string, flash
+from markupsafe import Markup
+from requests_html import HTMLSession
+from common.file_utils import find_unique_file_name, save_text_to_file
 from common.text_preprocessing import preprocess_text
+import concurrent.futures
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+import secrets
 
-app = Flask(__name__, template_folder='../templates')
-scraping_finished = False
+secret_key = secrets.token_hex(16)
+app = Flask(__name__)
+app.secret_key = secret_key
+
+
+def scrape_and_save_data(website_url, scrape_text):
+    # Launch the browser in the main thread
+    webdriver_service = Service(ChromeDriverManager().install())
+    browser = webdriver.Chrome(service=webdriver_service)
+
+    # Navigate to the website URL
+    browser.get(website_url)
+
+    # Scrape the text from the page
+    text = browser.page_source
+
+    # Save the text to a file
+    if scrape_text:
+        preprocessed_text = preprocess_text(text)
+        website_name = urlsplit(website_url).netloc
+        directory = "data/preprocessed_data"
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        file_name = find_unique_file_name(directory, website_name)
+        file_path = os.path.join(directory, file_name)
+        with open(file_path, 'w', encoding='utf-8') as f:  # Specify 'utf-8' encoding
+            f.write(preprocessed_text)
+        flash(Markup(f'Text scraped and saved to <a href="{file_path}">{file_path}</a>.'))
+
+    # Close the browser
+    browser.quit()
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
-    global scraping_finished
-    
     if request.method == 'POST':
         # Get the website URL from the form submission
-        website_url = request.form['website_url']
-        
-        # Get the checkboxes' values from the form submission
-        scrape_text = 'scrape_text' in request.form
-        scrape_links = 'scrape_links' in request.form
-        
-        # Perform the scraping and saving logic based on the checkboxes' values
+        website_url = request.values.get('website_url')
+
+        # Get the checkbox's value from the form submission
+        scrape_text = request.values.get('scrape_text') == 'on'
+
+        # Perform the scraping and saving logic based on the checkbox's value
         if scrape_text:
-            response = send_get_request(website_url)
-            soup = parse_html(response)
-            text = extract_text(soup)
-            preprocessed_text = preprocess_text(text)  
-            website_name = get_website_name(website_url)
-            directory = "data/preprocessed_data"  
-            create_directory(directory)
-            file_name = find_unique_file_name(directory, website_name)
-            file_path = os.path.join(directory, file_name)
-            save_text_to_file(file_path, preprocessed_text)  
-        
-        if scrape_links:
-            response = send_get_request(website_url)
-            soup = parse_html(response)
-            links = extract_links(soup)
-            website_name = get_website_name(website_url)
-            directory = "data/links"
-            create_directory(directory)
-            file_name = find_unique_file_name(directory, website_name)
-            file_path = os.path.join(directory, file_name)
-            save_links_to_file(file_path, links)
-        
-        # Set scraping_finished to True to show the "End" button
-        scraping_finished = True
-    
+            scrape_and_save_data(website_url, scrape_text)
+            
     # Render the home.html template for the initial page load
-    return render_template('home.html', show_end_button=scraping_finished)
-
-@app.route('/end', methods=['GET'])
-def end():
-    # Redirect to a blank page to simulate closing the web page
-    return redirect("about:blank")
-
-if __name__ == '__main__':
-    # Open the browser automatically
-    webbrowser.open('http://localhost:5000/')
-    
-    # Run the Flask server in production mode
-    app.run(debug=False)
+    return render_template_string('''
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+        <form method="post">
+        <label for="website_url">Website URL:</label>
+        <input type="text" id="website_url" name="website_url" required>
+        <br>
+        <input type="checkbox" id="scrape_text" name="scrape_text">
+        <label for="scrape_text">Scrape Text</label>
+        <br>
+        <button type="submit">Scrape</button>
+        </form>
+    ''')

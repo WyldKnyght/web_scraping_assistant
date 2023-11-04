@@ -1,4 +1,4 @@
-M:\dev_env\web_scraping
+M:\dev_env\web_scraping_assistant
 ├── .gitignore
 ├── LICENSE
 ├── README.md
@@ -6,33 +6,19 @@ M:\dev_env\web_scraping
 │   └── create_folder_structure.py
 ├── data
 │   ├── links
-│   │   ├── bulbapedia.bulbagarden.net-1.txt
-│   │   ├── bulbapedia.bulbagarden.net-2.txt
-│   │   ├── bulbapedia.bulbagarden.net-3.txt
-│   │   ├── bulbapedia.bulbagarden.net-4.txt
-│   │   ├── bulbapedia.bulbagarden.net-5.txt
-│   │   ├── bulbapedia.bulbagarden.net-6.txt
-│   │   ├── bulbapedia.bulbagarden.net-7.txt
-│   │   └── bulbapedia.bulbagarden.net-8.txt
 │   ├── preprocessed_data
-│   │   ├── bulbapedia.bulbagarden.net-1.txt
-│   │   ├── bulbapedia.bulbagarden.net-2.txt
-│   │   ├── bulbapedia.bulbagarden.net-3.txt
-│   │   └── bulbapedia.bulbagarden.net-4.txt
-│   └── raw_data
-│       ├── bulbapedia.bulbagarden.net-1.txt
-│       ├── bulbapedia.bulbagarden.net-10.txt
-│       ├── bulbapedia.bulbagarden.net-2.txt
-│       ├── bulbapedia.bulbagarden.net-3.txt
-│       ├── bulbapedia.bulbagarden.net-4.txt
-│       ├── bulbapedia.bulbagarden.net-5.txt
-│       ├── bulbapedia.bulbagarden.net-6.txt
-│       ├── bulbapedia.bulbagarden.net-7.txt
-│       ├── bulbapedia.bulbagarden.net-8.txt
-│       └── bulbapedia.bulbagarden.net-9.txt
+│   │   ├── www.analyticsvidhya.com-1.txt
+│   │   ├── www.analyticsvidhya.com-2.txt
+│   │   └── www.analyticsvidhya.com-3.txt
+│   ├── raw_data
+│   └── training_data
 ├── docs
-│   ├── description_for_ai.txt
+│   ├── .my_docs
+│   │   ├── description_for_ai.txt
+│   │   ├── project steps.txt
+│   │   └── project_description.txt
 │   └── folder_structure.txt
+├── requirements.txt
 ├── src
 │   ├── common
 │   │   ├── file_utils.py
@@ -43,4 +29,4 @@ M:\dev_env\web_scraping
 └── templates
     └── home.html
 
-Script last modified: 2023-11-01 16:21:57
+Script last modified: 2023-11-04 08:21:26

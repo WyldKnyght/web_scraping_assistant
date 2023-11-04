@@ -1,19 +1,15 @@
-#\src\common\file_utils.py
-
-import os
+from pathlib import Path
 
 def create_directory(directory):
     # Create the directory if it doesn't exist
-    os.makedirs(directory, exist_ok=True)
+    Path(directory).mkdir(parents=True, exist_ok=True)
 
 def find_unique_file_name(directory, website_name):
     # Find a unique file name
-    file_name = f"{website_name}-1.txt"
     i = 1
-    while os.path.exists(os.path.join(directory, file_name)):
+    while (file_path := Path(directory, f"{website_name}-{i}.txt")).exists():
         i += 1
-        file_name = f"{website_name}-{i}.txt"
-    return file_name
+    return file_path.name
 
 def save_text_to_file(file_path, text):
     with open(file_path, 'w', encoding='utf-8') as file:
@@ -21,5 +17,4 @@ def save_text_to_file(file_path, text):
 
 def save_links_to_file(file_path, links):
     with open(file_path, 'w', encoding='utf-8') as file:
-        for link in links:
-            file.write(link + '\n')
+        file.writelines(f"{link}\n" for link in links)

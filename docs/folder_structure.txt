@@ -7,11 +7,12 @@ M:\dev_env\web_scraping_assistant
 ├── data
 │   ├── links
 │   ├── preprocessed_data
-│   │   ├── www.analyticsvidhya.com-1.txt
-│   │   ├── www.analyticsvidhya.com-2.txt
-│   │   └── www.analyticsvidhya.com-3.txt
+│   │   ├── preprocessed_data_goes_in this folder.txt
+│   │   └── www.kaggle.com-1.txt
 │   ├── raw_data
+│   │   └── raw_data_goes_in this folder.txt
 │   └── training_data
+│       └── training_data_goes_in this folder.txt
 ├── docs
 │   ├── .my_docs
 │   │   ├── description_for_ai.txt
@@ -25,8 +26,13 @@ M:\dev_env\web_scraping_assistant
 │   │   ├── text_preprocessing.py
 │   │   └── web_utils.py
 │   ├── main.py
+│   ├── routes
+│   │   ├── __init__.py
+│   │   ├── home.py
+│   │   ├── index.py
+│   │   └── users.py
 │   └── web_ui.py
 └── templates
     └── home.html
 
-Script last modified: 2023-11-04 08:21:26
+Script last modified: 2023-11-04 14:32:47

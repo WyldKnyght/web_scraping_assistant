@@ -2,6 +2,9 @@
 
 # Importing only required function from web_ui module
 from web_ui import app
+from routes.home import home_bp
+
+app.register_blueprint(home_bp)
 
 # Applying nest_asyncio to allow asyncio to work with Flask
 import nest_asyncio

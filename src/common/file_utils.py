@@ -18,8 +18,3 @@ def find_unique_file_name(directory, website_name):
 def save_text_to_file(file_path, text):
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write(text)
-
-def save_links_to_file(file_path, links):
-    with open(file_path, 'w', encoding='utf-8') as file:
-        for link in links:
-            file.write(link + '\n')

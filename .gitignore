@@ -162,3 +162,5 @@ cython_debug/
 # My project ignores
 .vs
 /data/raw_data/*.*
+/docs/.my_docs
+

@@ -6,15 +6,16 @@ M:\dev_env\web_scraping_assistant
 │   └── create_folder_structure.py
 ├── data
 │   ├── links
+│   │   └── extracted_links_go_in this folder.txt
 │   ├── preprocessed_data
-│   │   ├── preprocessed_data_goes_in this folder.txt
-│   │   └── www.kaggle.com-1.txt
+│   │   └── preprocessed_data_goes_in this folder.txt
 │   ├── raw_data
 │   │   └── raw_data_goes_in this folder.txt
 │   └── training_data
 │       └── training_data_goes_in this folder.txt
 ├── docs
 │   ├── .my_docs
+│   │   ├── code_structure.txt
 │   │   ├── description_for_ai.txt
 │   │   ├── project steps.txt
 │   │   └── project_description.txt
@@ -22,17 +23,15 @@ M:\dev_env\web_scraping_assistant
 ├── requirements.txt
 ├── src
 │   ├── common
-│   │   ├── file_utils.py
-│   │   ├── text_preprocessing.py
-│   │   └── web_utils.py
+│   │   └── file_utils.py
 │   ├── main.py
 │   ├── routes
 │   │   ├── __init__.py
-│   │   ├── home.py
-│   │   ├── index.py
-│   │   └── users.py
+│   │   └── home.py
+│   ├── web_scraping
+│   │   └── scraper.py
 │   └── web_ui.py
 └── templates
     └── home.html
 
-Script last modified: 2023-11-04 14:32:47
+Script last modified: 2023-11-06 13:12:19

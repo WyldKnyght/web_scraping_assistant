@@ -14,10 +14,7 @@ def get_website_name(website_url):
     # Split the network location into parts separated by dots
     location_parts = network_location.split('.')
 
-    # The website name is the second to last part of the network location (edureka)
-    website_name = location_parts[-2]
-
-    return website_name
+    return location_parts[-2]
 
 home_bp = Blueprint('home', __name__)
 
@@ -29,18 +26,14 @@ def home():
 
         # Get the website name from the website URL
         website_name = get_website_name(website_url)
-        
+
         # Define the directory variable
         directory = "data/preprocessed_data"
 
         # Call the find_unique_file_name function with the website name
         file_name = find_unique_file_name(directory, website_name)
 
-        # Get the checkbox's value from the form submission
-        scrape_text = request.values.get('scrape_text') == 'on'
-
-        # Perform the scraping and saving logic based on the checkbox's value
-        if scrape_text:
+        if scrape_text := request.values.get('scrape_text') == 'on':
             text = launch_browser_and_scrape(website_url)
             scrape_and_save_data(website_url, scrape_text)
 

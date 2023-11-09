@@ -33,29 +33,23 @@ session = requests.Session()
 
 # Sends a GET request to the given URL using the global session object.
 def send_get_request(url):
-    response = session.get(url)
-    return response
+    return session.get(url)
 
 # Parses the HTML response using the lxml parser.
 def parse_html(response):
-    soup = BeautifulSoup(response.text, "lxml")
-    return soup
+    return BeautifulSoup(response.text, "lxml")
 
 # Extracts all the text from the website.
 def extract_text(soup):
-    text = soup.get_text()
-    return text
+    return soup.get_text()
 
 # Gets the website name from the URL using urlsplit library.
 def get_website_name(url):
     parsed_url = urlparse(url)
-    website_name = parsed_url.netloc.split('.')[-2]
-    return website_name
+    return parsed_url.netloc.split('.')[-2]
 
 def preprocess_text(text):
-    # Process the text using the preprocessing pipeline
-    processed_text = preprocessing_pipeline.process(text)
-    return processed_text
+    return preprocessing_pipeline.process(text)
 
 def scrape_and_save_data(website_url, scrape_text):
     # Send a GET request to the website URL

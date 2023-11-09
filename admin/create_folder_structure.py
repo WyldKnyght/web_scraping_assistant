@@ -1,10 +1,13 @@
+#\admin\create_folder_structure.py
+
 import os
 from treelib import Tree
 import datetime
 
 def generate_folder_structure(root_dir, output_file=None, excluded_dirs=None):
     tree = Tree()
-    tree.create_node(root_dir, root_dir)  # Create the root node
+    root_name = os.path.basename(root_dir)  # Get the base name of the root directory
+    tree.create_node(root_name, root_dir)  # Create the root node
 
     # Convert excluded_dirs to a set (if it's not already)
     excluded_dirs = set(excluded_dirs) if excluded_dirs else set()
@@ -42,5 +45,5 @@ if __name__ == "__main__":
     output_filename = os.path.join(docs_dir, "folder_structure.txt")
     excluded_dirs = {".git", ".chainlit", ".venv",".vs",".my_files",".idea", "__pycache__", "gradio_cached_examples", ".github"}
 
-    print(f"Project Folder Structure for: {project_root}")
+    print(f"Project Folder Structure for: {os.path.basename(project_root)}")
     generate_folder_structure(project_root, output_file=output_filename, excluded_dirs=excluded_dirs)

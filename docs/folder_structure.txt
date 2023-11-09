@@ -1,9 +1,11 @@
-M:\dev_env\web_scraping_assistant
+web_scraping_assistant
+├── .env
 ├── .gitignore
 ├── LICENSE
 ├── README.md
 ├── admin
-│   └── create_folder_structure.py
+│   ├── create_folder_structure.py
+│   └── model_download.py
 ├── data
 │   ├── links
 │   │   └── extracted_links_go_in this folder.txt
@@ -15,23 +17,30 @@ M:\dev_env\web_scraping_assistant
 │       └── training_data_goes_in this folder.txt
 ├── docs
 │   ├── .my_docs
+│   │   ├── add LLM.txt
 │   │   ├── code_structure.txt
 │   │   ├── description_for_ai.txt
 │   │   ├── project steps.txt
-│   │   └── project_description.txt
+│   │   ├── project_description.txt
+│   │   └── repo_description_1.md
+│   ├── Roadmap.png
 │   └── folder_structure.txt
+├── models
+│   └── llama-2-13b-chat.Q4_K_M.gguf
 ├── requirements.txt
-├── src
-│   ├── common
-│   │   └── file_utils.py
-│   ├── main.py
-│   ├── routes
-│   │   ├── __init__.py
-│   │   └── home.py
-│   ├── web_scraping
-│   │   └── scraper.py
-│   └── web_ui.py
-└── templates
-    └── home.html
+└── src
+    ├── chatbots
+    │   └── chatbot.py
+    ├── common
+    │   └── file_utils.py
+    ├── main.py
+    ├── routes
+    │   ├── __init__.py
+    │   └── home.py
+    ├── templates
+    │   └── home.html
+    ├── web_scraping
+    │   └── scraper.py
+    └── web_ui.py
 
-Script last modified: 2023-11-06 13:12:19
+Script last modified: 2023-11-09 15:10:56

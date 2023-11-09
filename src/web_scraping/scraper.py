@@ -11,6 +11,18 @@ import string
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
+from langchain import LangChain, Pipeline
+from langchain.tasks import Lowercase, RemovePunctuation, RemoveWhitespace, Tokenize, RemoveStopwords, Stem
+
+# Define the pipeline for text preprocessing
+preprocessing_pipeline = Pipeline([
+    Lowercase(),
+    RemovePunctuation(),
+    RemoveWhitespace(),
+    Tokenize(),
+    RemoveStopwords(),
+    Stem()
+])
 
 # Create global variables for stopwords and stemmer to avoid reinitializing them for every text
 stop_words = set(stopwords.words('english'))
@@ -41,24 +53,9 @@ def get_website_name(url):
     return website_name
 
 def preprocess_text(text):
-    # Lowercase the text
-    text = text.lower()
-
-    # Remove punctuation
-    translator = str.maketrans('', '', string.punctuation)
-    text = text.translate(translator)
-
-    # Remove whitespaces
-    text = " ".join(text.split())
-
-    # Tokenize the text
-    tokens = word_tokenize(text)
-
-    # Remove stopwords and stem the tokens in one loop
-    tokens = [stemmer.stem(token) for token in tokens if token not in stop_words]
-
-    # Join the tokens back into a string
-    return ' '.join(tokens)
+    # Process the text using the preprocessing pipeline
+    processed_text = preprocessing_pipeline.process(text)
+    return processed_text
 
 def scrape_and_save_data(website_url, scrape_text):
     # Send a GET request to the website URL

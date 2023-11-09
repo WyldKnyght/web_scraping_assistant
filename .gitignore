@@ -163,4 +163,5 @@ cython_debug/
 .vs
 /data/raw_data/*.*
 /docs/.my_docs
+/Models/
 

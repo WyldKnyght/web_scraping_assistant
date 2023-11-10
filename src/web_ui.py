@@ -1,27 +1,14 @@
 # \src\web_ui.py
-
-import secrets
+import os
+from dotenv import load_dotenv
 from flask import Flask
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+from web_scraping.scraper import Scraper
 
-secret_key = secrets.token_hex(16)
+load_dotenv()
+
+secret_key = os.getenv('SECRET_KEY')
+
 app = Flask(__name__)
 app.secret_key = secret_key
 
-def launch_browser_and_scrape(website_url):
-    # Launch the browser in the main thread
-    webdriver_service = Service(ChromeDriverManager().install())
-    browser = webdriver.Chrome(service=webdriver_service)
-
-    # Navigate to the website URL
-    browser.get(website_url)
-
-    # Scrape the text from the page
-    text = browser.page_source
-
-    # Close the browser
-    browser.quit()
-
-    return text
+scraper = Scraper()

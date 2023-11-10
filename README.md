@@ -5,6 +5,8 @@ The goal of this project is to create a Web Scraping Assistant that will extract
 The project is structured in a way that the extracted data is saved in the `data` folder, preprocessed data is saved in the `preprocessed_data` folder, and training data is saved in the `training_data` folder. 
 The `src` folder contains the source code for the project.
 
+This project is my submission for [Backdrop Build v2](https://backdropbuild.com/v2)
+
 ## Getting Started
 
 To get started with the Web Scraping Assistant, follow these steps:
@@ -35,3 +37,8 @@ Contributions to the Web Scraping Assistant are welcome! If you find a bug or ha
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## Credits
+
+This project is developed in collaboration with ChatGPT (GPT-3.5) and Phind. 
+

@@ -1,4 +1,4 @@
-﻿from langchain.llms import CTransformers
+from langchain.llms import CTransformers
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 

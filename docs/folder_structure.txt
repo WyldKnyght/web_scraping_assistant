@@ -5,12 +5,14 @@ web_scraping_assistant
 ├── README.md
 ├── admin
 │   ├── create_folder_structure.py
-│   └── model_download.py
+│   ├── model_download.py
+│   └── secret_generator.py
 ├── data
 │   ├── links
 │   │   └── extracted_links_go_in this folder.txt
 │   ├── preprocessed_data
-│   │   └── preprocessed_data_goes_in this folder.txt
+│   │   ├── preprocessed_data_goes_in this folder.txt
+│   │   └── scrapingbee-1.txt
 │   ├── raw_data
 │   │   └── raw_data_goes_in this folder.txt
 │   └── training_data
@@ -24,7 +26,8 @@ web_scraping_assistant
 │   │   ├── project_description.txt
 │   │   └── repo_description_1.md
 │   ├── Roadmap.png
-│   └── folder_structure.txt
+│   ├── folder_structure.txt
+│   └── project_information.md
 ├── models
 │   └── llama-2-13b-chat.Q4_K_M.gguf
 ├── requirements.txt
@@ -32,7 +35,7 @@ web_scraping_assistant
     ├── chatbots
     │   └── chatbot.py
     ├── common
-    │   └── file_utils.py
+    │   └── file_handling.py
     ├── main.py
     ├── routes
     │   ├── __init__.py
@@ -40,7 +43,9 @@ web_scraping_assistant
     ├── templates
     │   └── home.html
     ├── web_scraping
+    │   ├── __init__.py
+    │   ├── data_cleaning.py
     │   └── scraper.py
     └── web_ui.py
 
-Script last modified: 2023-11-09 15:10:56
+Script last modified: 2023-11-10 14:49:14

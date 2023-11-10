@@ -15,8 +15,9 @@ def home():
             scraper = Scraper()
 
             if scrape_text:
-                result = scraper.scrape_and_save_data(website_url, scrape_text=True)
-                if result:
+                if result := scraper.scrape_and_save_data(
+                    website_url, scrape_text=True
+                ):
                     flash(Markup(f'Text scraped and saved to <a href="{result}">{result}</a>.'))
                 else:
                     flash('An error occurred during scraping.')

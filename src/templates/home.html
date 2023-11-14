@@ -17,3 +17,9 @@
     <br>
     <button type="submit">Scrape</button>
 </form>
+
+<form method="post" action="/preprocess" enctype="multipart/form-data">
+    <label for="file">Choose a text file:</label>
+    <input type="file" id="file" name="file" accept=".txt">
+    <input type="submit" value="Preprocess">
+</form>

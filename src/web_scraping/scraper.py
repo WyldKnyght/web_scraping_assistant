@@ -40,7 +40,7 @@ class Scraper:
             if scrape_text:
                 preprocessed_text = preprocess_text(text)
                 website_name = self.get_website_name(website_url)
-                directory = "data/preprocessed_data"
+                directory = "data/raw_data"
                 create_directory(directory)
                 file_name = find_unique_file_name(directory, website_name)
                 file_path = os.path.join(directory, file_name)

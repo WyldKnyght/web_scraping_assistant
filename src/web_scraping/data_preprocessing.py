@@ -17,6 +17,9 @@ lemmatizer = WordNetLemmatizer()
 
 class Preprocessor:
     def preprocess_and_save_data(self, text, filename):
+        if not text:
+            raise ValueError("Text is empty")
+       
         # Tokenize the text
         tokens = word_tokenize(text)
         

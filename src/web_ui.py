@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from flask import Flask
 from web_scraping.scraper import Scraper
+from web_scraping.data_preprocessing import Preprocessor
 
 load_dotenv()
 
@@ -12,3 +13,4 @@ app = Flask(__name__)
 app.secret_key = secret_key
 
 scraper = Scraper()
+preprocessor = Preprocessor()

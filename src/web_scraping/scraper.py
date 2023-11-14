@@ -15,21 +15,17 @@ class Scraper:
         self.chrome_options.add_argument("--disable-gpu")
 
     def send_get_request(self, url):
-        response = self.session.get(url)
-        return response
+        return self.session.get(url)
 
     def parse_html(self, response):
-        soup = BeautifulSoup(response.text, "lxml")
-        return soup
+        return BeautifulSoup(response.text, "lxml")
 
     def extract_text(self, soup):
-        text = soup.get_text()
-        return text
+        return soup.get_text()
 
     def get_website_name(self, url):
         parsed_url = urlparse(url)
-        website_name = parsed_url.netloc.split('.')[-2]
-        return website_name
+        return parsed_url.netloc.split('.')[-2]
 
     def scrape_and_save_data(self, website_url, scrape_text=False):
         try:

@@ -18,8 +18,9 @@ def home():
             scraper = Scraper()
 
             if scrape_text:
-                result = scraper.scrape_and_save_data(website_url, scrape_text=True)
-                if result:
+                if result := scraper.scrape_and_save_data(
+                    website_url, scrape_text=True
+                ):
                     flash(Markup(f'Text scraped and saved to <a href="{result}">{result}</a>.'))
                 else:
                     flash('An error occurred during scraping.')
@@ -37,11 +38,9 @@ def preprocess():
     if 'file' in request.files:
         file = request.files['file']
         text = file.read().decode('utf-8')
-        
+
         filename = secure_filename(file.filename)
-        result = preprocessor.preprocess_and_save_data(text, filename)
-        
-        if result:
+        if result := preprocessor.preprocess_and_save_data(text, filename):
             flash(Markup(f'File processed and saved to <a href="{result}">{result}</a>.'))
         else:
             flash('An error occurred during preprocessing.')

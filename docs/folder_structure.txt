@@ -11,25 +11,38 @@ web_scraping_assistant
 │   ├── links
 │   │   └── extracted_links_go_in this folder.txt
 │   ├── preprocessed_data
-│   │   ├── preprocessed_data_goes_in this folder.txt
-│   │   └── scrapingbee-1.txt
+│   │   ├── analyticsvidhya-1.txt
+│   │   ├── dev-1.txt
+│   │   └── preprocessed_data_goes_in this folder.txt
 │   ├── raw_data
-│   │   └── raw_data_goes_in this folder.txt
+│   │   ├── analyticsvidhya-1.txt
+│   │   ├── dev-1.txt
+│   │   ├── raw_data_goes_in this folder.txt
+│   │   └── scraperapi-1.txt
+│   ├── summarized_data
+│   │   └── summarized_data_goes_in this folder.txt
 │   └── training_data
 │       └── training_data_goes_in this folder.txt
 ├── docs
 │   ├── .my_docs
+│   │   ├── LangChain for Web Scraping.docx
 │   │   ├── add LLM.txt
 │   │   ├── code_structure.txt
 │   │   ├── description_for_ai.txt
+│   │   ├── hardware_setup.txt
 │   │   ├── project steps.txt
 │   │   ├── project_description.txt
 │   │   └── repo_description_1.md
 │   ├── Roadmap.png
 │   ├── folder_structure.txt
+│   ├── langchain_results
+│   ├── outstanding_tasks.txt
 │   └── project_information.md
 ├── models
-│   └── llama-2-13b-chat.Q4_K_M.gguf
+│   ├── codellama-13b-instruct.Q4_K_M.gguf
+│   ├── config.txt
+│   ├── llama-2-13b-chat.Q4_K_M.gguf
+│   └── llama-2-7b-chat.Q4_K_M.gguf
 ├── requirements.txt
 └── src
     ├── chatbots
@@ -45,7 +58,9 @@ web_scraping_assistant
     ├── web_scraping
     │   ├── __init__.py
     │   ├── data_cleaning.py
+    │   ├── data_preprocessing.py
+    │   ├── data_transformation.py
     │   └── scraper.py
     └── web_ui.py
 
-Script last modified: 2023-11-10 14:49:14
+Script last modified: 2023-11-16 13:09:59

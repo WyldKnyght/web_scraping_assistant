@@ -60,7 +60,7 @@ def transform():
         filename = secure_filename(file.filename)
         
         # Call the transform_and_save_data method from the DataTransformer class
-        if result := data_transformer.label_and_save_data(text, filename):
+        if result := data_transformer.transform_and_save_data(text, filename):
             flash(Markup(f'Transformed data saved to <a href="{result}">{result}</a>.'))
         else:
             flash('An error occurred during transformation.')

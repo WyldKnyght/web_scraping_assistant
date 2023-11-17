@@ -23,3 +23,9 @@
     <input type="file" id="file" name="file" accept=".txt">
     <input type="submit" value="Preprocess">
 </form>
+
+<form method="post" action="/transform" enctype="multipart/form-data">
+    <label for="transform_file">Choose a text file for transformation:</label>
+    <input type="file" id="transform_file" name="file" accept=".txt">
+    <input type="submit" value="Transform">
+</form>

@@ -4,8 +4,15 @@ import os
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 from common.file_handling import create_directory, find_unique_file_name, save_text_to_file
-from .data_cleaning import preprocess_text
 from selenium.webdriver.chrome.options import Options
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+from nltk.tokenize import word_tokenize
+import string
+
+# Create global variables for stopwords and stemmer to avoid reinitializing them for every text
+stop_words = set(stopwords.words('english'))
+stemmer = PorterStemmer()
 
 class Scraper:
     def __init__(self):
@@ -23,6 +30,25 @@ class Scraper:
     def extract_text(self, soup):
         return soup.get_text()
 
+    @staticmethod
+    def preprocess_text(text):
+        # Lowercase the text
+        text = text.lower()
+    
+        # Remove punctuation
+        text = text.translate(str.maketrans('', '', string.punctuation))
+
+        # Tokenize the text
+        tokens = word_tokenize(text)
+    
+        # Remove stopwords and stem the tokens
+        processed_tokens = [stemmer.stem(token) for token in tokens if token not in stop_words]
+    
+        # Join the processed tokens back into a single string
+        processed_text = ' '.join(processed_tokens)
+    
+        return processed_text
+
     def get_website_name(self, url):
         parsed_url = urlparse(url)
         return parsed_url.netloc.split('.')[-2]
@@ -34,7 +60,7 @@ class Scraper:
             text = self.extract_text(soup)
 
             if scrape_text:
-                preprocessed_text = preprocess_text(text)
+                preprocessed_text = self.preprocess_text(text)
                 website_name = self.get_website_name(website_url)
                 directory = "data/raw_data"
                 create_directory(directory)

@@ -14,14 +14,10 @@ class DataTransformer:
             raise ValueError("Text is empty")
 
         tokens = nltk.word_tokenize(text)
-        X = self.vectorizer.fit_transform(tokens)
-
-        return X
+        return self.vectorizer.fit_transform(tokens)
 
     def feature_extraction(self, X):
-        X_pca = self.pca.fit_transform(X)
-
-        return X_pca
+        return self.pca.fit_transform(X)
 
     def transform_and_save_data(self, X_pca, filename):
         # Save the labeled text to a file

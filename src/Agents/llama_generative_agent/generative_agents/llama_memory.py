@@ -32,8 +32,7 @@ class LlamaGenerativeAgentMemory(GenerativeAgentMemory):
         score = self.chain(prompt).run(memory_content=memory_content).strip()
 
         logger.warning(f"Importance score: {score}")
-        match = re.search(r"^\D*(\d+)", score)
-        if match:
+        if match := re.search(r"^\D*(\d+)", score):
             return (float(score[0]) / 10) * self.importance_weight
         else:
             return 0.0

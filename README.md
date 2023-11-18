@@ -41,4 +41,5 @@ This project is licensed under the [MIT License](LICENSE).
 ## Credits
 
 This project is developed in collaboration with ChatGPT (GPT-3.5) and Phind. 
+Llama Generative Agent created by Uranus Seven [UranusSeven\llama_generative_agent](https://github.com/UranusSeven/llama_generative_agent)
 

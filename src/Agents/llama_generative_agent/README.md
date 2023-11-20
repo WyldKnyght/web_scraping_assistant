@@ -1,15 +1,11 @@
 
-![image](https://user-images.githubusercontent.com/109661872/236526585-acc7b215-8181-4385-aadf-e908b6279251.png)
-
-
-
 # LLaMA Generative Agent
 A generative agent implementation for LLaMA based models, derived from langchain's implementation.
 
-Since LangChain and Chroma has introduced non-backward compatible changes, please **use the following versions:**
-
-- chroma: 0.3.21
-- langchain: 0.0.192
+# Requirements
+- LangChain
+- Chroma
+- Chroma requires SQLite > 3.35
 
 **This project is still in its early stages. The generative agent's inference is currently quite slow and may not produce reasonable answers. Any suggestions or advice on improving its performance would be greatly appreciated!**
 

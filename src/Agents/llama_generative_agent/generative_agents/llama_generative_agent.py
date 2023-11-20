@@ -104,7 +104,7 @@ class LlamaGenerativeAgent(GenerativeAgent):
             current_time=current_time_str,
             relevant_memories=relevant_memories_str,
             agent_name=self.name,
-            observation= speaker + " says " + observation,
+            observation=f"{speaker} says {observation}",
             agent_status=self.status,
         )
         consumed_tokens = self.llm.get_num_tokens(
@@ -136,15 +136,14 @@ class LlamaGenerativeAgent(GenerativeAgent):
                 },
             )
             return False, f"{self.name} said {farewell}"
-        if "SAY:" in result:
-            response_text = self._clean_response(result.split("SAY:")[-1])
-            self.memory.save_context(
-                {},
-                {
-                    self.memory.add_memory_key: f"{self.name} observed "
-                                                f"{observation} and said {response_text}"
-                },
-            )
-            return True, f"{self.name} said {response_text}"
-        else:
+        if "SAY:" not in result:
             return False, result
+        response_text = self._clean_response(result.split("SAY:")[-1])
+        self.memory.save_context(
+            {},
+            {
+                self.memory.add_memory_key: f"{self.name} observed "
+                                            f"{observation} and said {response_text}"
+            },
+        )
+        return True, f"{self.name} said {response_text}"

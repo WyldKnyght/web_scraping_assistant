@@ -22,6 +22,8 @@ from langchain.schema.embeddings import Embeddings
 from langchain.schema.vectorstore import VectorStore
 from langchain.utils import xor_args
 from langchain.vectorstores.utils import maximal_marginal_relevance
+from langchain.llms import LlamaCpp
+from langchain.embeddings import LlamaCppEmbeddings
 
 if TYPE_CHECKING:
     import chromadb
@@ -50,24 +52,10 @@ def _results_to_docs_and_scores(results: Any) -> List[Tuple[Document, float]]:
 
 
 class Chroma(VectorStore):
-    """`ChromaDB` vector store.
-
-    To use, you should have the ``chromadb`` python package installed.
-
-    Example:
-        .. code-block:: python
-
-                from langchain.vectorstores import Chroma
-                from langchain.embeddings.openai import OpenAIEmbeddings
-
-                embeddings = LlamaCppEmbeddings(
-                vectorstore = Chroma("langchain_store", embeddings)
-    """
-from langchain.llms import LlamaCpp
-from langchain.embeddings import LlamaCppEmbeddings
-embeddings = LlamaCppEmbeddings()
-Vectorstore = Chroma("langchain_store", embeddings)
-
+    """`ChromaDB` vector store."""
+    embeddings = LlamaCppEmbeddings()
+    Vectorstore = Chroma("langchain_store", embeddings)
+    
     _LANGCHAIN_DEFAULT_COLLECTION_NAME = "langchain"
 
     def __init__(
@@ -164,94 +152,6 @@ Vectorstore = Chroma("langchain_store", embeddings)
             where_document=where_document,
             **kwargs,
         )
-
-    def encode_image(self, uri: str) -> str:
-        """Get base64 string from image URI."""
-        with open(uri, "rb") as image_file:
-            return base64.b64encode(image_file.read()).decode("utf-8")
-
-    def add_images(
-        self,
-        uris: List[str],
-        metadatas: Optional[List[dict]] = None,
-        ids: Optional[List[str]] = None,
-        **kwargs: Any,
-    ) -> List[str]:
-        """Run more images through the embeddings and add to the vectorstore.
-
-        Args:
-            images (List[List[float]]): Images to add to the vectorstore.
-            metadatas (Optional[List[dict]], optional): Optional list of metadatas.
-            ids (Optional[List[str]], optional): Optional list of IDs.
-
-        Returns:
-            List[str]: List of IDs of the added images.
-        """
-        # Map from uris to b64 encoded strings
-        b64_texts = [self.encode_image(uri=uri) for uri in uris]
-        # Populate IDs
-        if ids is None:
-            ids = [str(uuid.uuid1()) for _ in uris]
-        embeddings = None
-        # Set embeddings
-        if self._embedding_function is not None and hasattr(
-            self._embedding_function, "embed_image"
-        ):
-            embeddings = self._embedding_function.embed_image(uris=uris)
-        if metadatas:
-            # fill metadatas with empty dicts if somebody
-            # did not specify metadata for all images
-            length_diff = len(uris) - len(metadatas)
-            if length_diff:
-                metadatas = metadatas + [{}] * length_diff
-            empty_ids = []
-            non_empty_ids = []
-            for idx, m in enumerate(metadatas):
-                if m:
-                    non_empty_ids.append(idx)
-                else:
-                    empty_ids.append(idx)
-            if non_empty_ids:
-                metadatas = [metadatas[idx] for idx in non_empty_ids]
-                images_with_metadatas = [uris[idx] for idx in non_empty_ids]
-                embeddings_with_metadatas = (
-                    [embeddings[idx] for idx in non_empty_ids] if embeddings else None
-                )
-                ids_with_metadata = [ids[idx] for idx in non_empty_ids]
-                try:
-                    self._collection.upsert(
-                        metadatas=metadatas,
-                        embeddings=embeddings_with_metadatas,
-                        documents=images_with_metadatas,
-                        ids=ids_with_metadata,
-                    )
-                except ValueError as e:
-                    if "Expected metadata value to be" in str(e):
-                        msg = (
-                            "Try filtering complex metadata using "
-                            "langchain.vectorstores.utils.filter_complex_metadata."
-                        )
-                        raise ValueError(e.args[0] + "\n\n" + msg)
-                    else:
-                        raise e
-            if empty_ids:
-                images_without_metadatas = [uris[j] for j in empty_ids]
-                embeddings_without_metadatas = (
-                    [embeddings[j] for j in empty_ids] if embeddings else None
-                )
-                ids_without_metadatas = [ids[j] for j in empty_ids]
-                self._collection.upsert(
-                    embeddings=embeddings_without_metadatas,
-                    documents=images_without_metadatas,
-                    ids=ids_without_metadatas,
-                )
-        else:
-            self._collection.upsert(
-                embeddings=embeddings,
-                documents=b64_texts,
-                ids=ids,
-            )
-        return ids
 
     def add_texts(
         self,

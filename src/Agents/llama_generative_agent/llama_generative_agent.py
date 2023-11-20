@@ -1,41 +1,50 @@
+#\src\Agents\llama_generative_agent\llama_generative_agent.py
+
 from langchain.llms import LlamaCpp
 from langchain.embeddings import LlamaCppEmbeddings
-import os
-
-# Get the directory of the current script
-script_directory = os.path.dirname(os.path.abspath(__file__))
-
-# Construct the absolute path to the model file
-model_path = os.path.abspath(os.path.join(script_directory, "../../../models/llama-2-13b-chat.Q4_K_M.gguf"))
-
-llm = LlamaCpp(
-    model_path=model_path, verbose=True, n_batch=256, temperature=0.3, n_ctx=2048,
-    use_mmap=False, stop=["###"]
-)
-
-from retrivers.llama_time_weighted_retriever import LlamaTimeWeightedVectorStoreRetriever
 from vectorestores.chroma import EnhancedChroma
-
-def create_new_memory_retriever():
-    embeddings_model = LlamaCppEmbeddings(model_path=model_path)
-    vs = EnhancedChroma(embedding_function=embeddings_model)
-    return LlamaTimeWeightedVectorStoreRetriever(vectorstore=vs, other_score_keys=["importance"], k=15)
-
+from retrivers.llama_time_weighted_retriever import LlamaTimeWeightedVectorStoreRetriever
 from generative_agents.llama_generative_agent import LlamaGenerativeAgent
 from generative_agents.llama_memory import LlamaGenerativeAgentMemory
+import os
 
+# Define model path
+script_directory = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.abspath(os.path.join(script_directory, "../../../models/llama-2-13b-chat.Q4_K_M.gguf"))
+
+# Initialize LlamaCpp
+llm = LlamaCpp(
+    model_path=model_path,
+    verbose=True,
+    n_batch=256,
+    temperature=0.3,
+    n_ctx=2048,
+    use_mmap=False,
+    stop=["###"]
+)
+
+# Set up the ChromaDB Vector Store
+embeddings_model = LlamaCppEmbeddings(model_path=model_path)
+vs = EnhancedChroma(embedding_function=embeddings_model, collection_name="my_collection")
+
+# Define memory retriever function
+def create_new_memory_retriever():
+    return LlamaTimeWeightedVectorStoreRetriever(vectorstore=vs, other_score_keys=["importance"], k=15)
+
+
+# Set up the Generative Agent
 tommies_memory = LlamaGenerativeAgentMemory(
     llm=llm,
     memory_retriever=create_new_memory_retriever(),
-    reflection_threshold=8, # we will give this a relatively low number to show how reflection works
+    reflection_threshold=8,
     verbose=True,
 )
 
 tommie = LlamaGenerativeAgent(
     name="Tommie",
     age=25,
-    traits="anxious, likes design, talkative", # You can add more persistent traits here
-    status="looking for a job", # When connected to a virtual world, we can have the characters update their status
+    traits="anxious, likes design, talkative",
+    status="looking for a job",
     memory_retriever=create_new_memory_retriever(),
     llm=llm,
     memory=tommies_memory,

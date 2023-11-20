@@ -77,8 +77,7 @@ class WebScrapingTool(Tool):
         soup = self.scraper.parse_html(web_response)
         extracted_text = self.scraper.extract_text(soup)
         preprocessed_text = self.preprocessor.preprocess_text(extracted_text)
-        transformed_data = self.data_transformer.transform_and_save_data(preprocessed_text)
-        return transformed_data
+        return self.data_transformer.transform_and_save_data(preprocessed_text)
 
 # Use the LlamaCPP agent instead of the Flask app
 if __name__ == '__main__':

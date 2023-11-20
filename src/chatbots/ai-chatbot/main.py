@@ -71,11 +71,7 @@ def create_chain(system_prompt):
     # We create a prompt from the template so we can use it with Langchain
     prompt = PromptTemplate(template=template, input_variables=["question"])
 
-    # We create an llm chain with our LLM and prompt
-    # llm_chain = LLMChain(prompt=prompt, llm=llm) # Legacy
-    llm_chain = prompt | llm  # LCEL
-
-    return llm_chain
+    return prompt | llm
 
 
 # Set the webpage title

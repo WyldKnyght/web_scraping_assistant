@@ -1,6 +1,8 @@
 web_scraping_assistant
 ├── .env
 ├── .gitignore
+├── .streamlit
+│   └── config.toml
 ├── LICENSE
 ├── README.md
 ├── admin
@@ -8,6 +10,7 @@ web_scraping_assistant
 │   ├── model_download.py
 │   └── secret_generator.py
 ├── data
+│   ├── labeled_data
 │   ├── links
 │   │   └── extracted_links_go_in this folder.txt
 │   ├── preprocessed_data
@@ -17,35 +20,87 @@ web_scraping_assistant
 │   ├── raw_data
 │   │   ├── analyticsvidhya-1.txt
 │   │   ├── dev-1.txt
+│   │   ├── edureka-1.txt
 │   │   ├── raw_data_goes_in this folder.txt
 │   │   └── scraperapi-1.txt
 │   ├── summarized_data
 │   │   └── summarized_data_goes_in this folder.txt
-│   └── training_data
-│       └── training_data_goes_in this folder.txt
+│   ├── training_data
+│   │   └── training_data_goes_in this folder.txt
+│   └── transformed_data
+│       └── analyticsvidhya-1.txt
 ├── docs
 │   ├── .my_docs
 │   │   ├── LangChain for Web Scraping.docx
 │   │   ├── add LLM.txt
+│   │   ├── best_practices.txt
 │   │   ├── code_structure.txt
+│   │   ├── data_prep_for_ai
 │   │   ├── description_for_ai.txt
 │   │   ├── hardware_setup.txt
 │   │   ├── project steps.txt
 │   │   ├── project_description.txt
-│   │   └── repo_description_1.md
+│   │   ├── repo_description_1.md
+│   │   └── transform_data.txt
 │   ├── Roadmap.png
 │   ├── folder_structure.txt
 │   ├── langchain_results
 │   ├── outstanding_tasks.txt
 │   └── project_information.md
 ├── models
-│   ├── codellama-13b-instruct.Q4_K_M.gguf
-│   ├── config.txt
-│   ├── llama-2-13b-chat.Q4_K_M.gguf
-│   └── llama-2-7b-chat.Q4_K_M.gguf
+│   ├── CodeLlama-13B-Instruct-GGUF
+│   │   └── codellama-13b-instruct.Q4_K_M.gguf
+│   ├── Lalma-2-7B-chat-GGUF
+│   │   └── llama-2-7b-chat.Q4_K_M.gguf
+│   ├── Llama-2-13B-chat-GGUF
+│   ├── Llama-2-13B-chat-GPTQ
+│   │   ├── config.txt
+│   │   ├── config_old.txt
+│   │   ├── generation_config.txt
+│   │   ├── quantize_config.txt
+│   │   ├── special_tokens_map.txt
+│   │   ├── tokenizer.txt
+│   │   └── tokenizer_config.txt
+│   └── llama-2-13b-chat.Q4_K_M.gguf
 ├── requirements.txt
 └── src
+    ├── Agents
+    │   ├── llama_generative_agent
+    │   │   ├── .gitignore
+    │   │   ├── .pre-commit-config.yaml
+    │   │   ├── LICENSE
+    │   │   ├── README.md
+    │   │   ├── generative_agents
+    │   │   │   ├── __init__.py
+    │   │   │   ├── llama_generative_agent.py
+    │   │   │   ├── llama_memory.py
+    │   │   │   └── tests
+    │   │   │       ├── __init__.py
+    │   │   │       ├── test_agent.py
+    │   │   │       └── test_memory.py
+    │   │   ├── llama_generative_agent.py
+    │   │   ├── retrivers
+    │   │   │   ├── __init__.py
+    │   │   │   └── llama_time_weighted_retriever.py
+    │   │   └── vectorestores
+    │   │       ├── __init__.py
+    │   │       ├── chroma.py
+    │   │       ├── chroma_old.py
+    │   │       └── tests
+    │   │           ├── __init__.py
+    │   │           ├── my_text_chroma.py
+    │   │           └── test_chroma.py
+    │   ├── web_research_retriever_agent
+    │   │   └── WebResearchRetriever_agent.py
+    │   └── web_scraping_agent
+    │       └── agent.py
     ├── chatbots
+    │   ├── ai-chatbot
+    │   │   ├── .gitignore
+    │   │   ├── LICENSE
+    │   │   ├── README.md
+    │   │   ├── main.py
+    │   │   └── requirements.txt
     │   └── chatbot.py
     ├── common
     │   └── file_handling.py
@@ -57,10 +112,9 @@ web_scraping_assistant
     │   └── home.html
     ├── web_scraping
     │   ├── __init__.py
-    │   ├── data_cleaning.py
     │   ├── data_preprocessing.py
     │   ├── data_transformation.py
     │   └── scraper.py
     └── web_ui.py
 
-Script last modified: 2023-11-16 13:09:59
+Script last modified: 2023-11-20 19:21:11

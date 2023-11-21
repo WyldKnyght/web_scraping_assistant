@@ -64,50 +64,15 @@ web_scraping_assistant
 │   └── llama-2-13b-chat.Q4_K_M.gguf
 ├── requirements.txt
 └── src
-    ├── Agents
-    │   ├── llama_generative_agent
-    │   │   ├── .gitignore
-    │   │   ├── .pre-commit-config.yaml
-    │   │   ├── LICENSE
-    │   │   ├── README.md
-    │   │   ├── generative_agents
-    │   │   │   ├── __init__.py
-    │   │   │   ├── llama_generative_agent.py
-    │   │   │   ├── llama_memory.py
-    │   │   │   └── tests
-    │   │   │       ├── __init__.py
-    │   │   │       ├── test_agent.py
-    │   │   │       └── test_memory.py
-    │   │   ├── llama_generative_agent.py
-    │   │   ├── retrivers
-    │   │   │   ├── __init__.py
-    │   │   │   └── llama_time_weighted_retriever.py
-    │   │   └── vectorestores
-    │   │       ├── __init__.py
-    │   │       ├── chroma.py
-    │   │       ├── chroma_old.py
-    │   │       └── tests
-    │   │           ├── __init__.py
-    │   │           ├── my_text_chroma.py
-    │   │           └── test_chroma.py
-    │   ├── web_research_retriever_agent
-    │   │   └── WebResearchRetriever_agent.py
-    │   └── web_scraping_agent
-    │       └── agent.py
-    ├── chatbots
-    │   ├── ai-chatbot
-    │   │   ├── .gitignore
-    │   │   ├── LICENSE
-    │   │   ├── README.md
-    │   │   ├── main.py
-    │   │   └── requirements.txt
-    │   └── chatbot.py
+    ├── ai-chatbot
+    │   ├── README.md
+    │   └── ai-chatbot.py
     ├── common
     │   └── file_handling.py
-    ├── main.py
     ├── routes
     │   ├── __init__.py
     │   └── home.py
+    ├── start_flask.py
     ├── templates
     │   └── home.html
     ├── web_scraping
@@ -117,4 +82,4 @@ web_scraping_assistant
     │   └── scraper.py
     └── web_ui.py
 
-Script last modified: 2023-11-20 19:21:11
+Script last modified: 2023-11-20 19:54:37

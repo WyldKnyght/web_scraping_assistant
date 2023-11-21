@@ -1,8 +1,1 @@
-﻿web_scraping_assistant/
-├── .streamlit/
-│   └── config.toml
-├── requirements.txt
-└── src/
-    └── chatbots/
-        └── ai-chatbot/
-            └── main.py
+﻿

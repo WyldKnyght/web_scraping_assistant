@@ -2,7 +2,7 @@
 import os
 from dotenv import load_dotenv
 from flask import Flask
-from web_scraping.scraper import Scraper
+from web_scraping.data_scraping import Scraper
 from web_scraping.data_preprocessing import Preprocessor
 from web_scraping.data_transformation import DataTransformer    
 

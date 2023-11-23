@@ -8,7 +8,7 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from nltk.tokenize import word_tokenize
 import string
-
+from web_scraping.verify_robot_txt import RobotTxtChecker
 
 # Create global variables for stopwords and stemmer to avoid reinitializing them for every text
 stop_words = set(stopwords.words('english'))
@@ -70,6 +70,13 @@ class Scraper:
         return parsed_url.netloc.split('.')[-2]
 
     def scrape_and_save_data(self, website_url, scrape_text=False):
+
+        # Check if scraping is allowed by robots.txt
+        robot_checker = RobotTxtChecker(website_url)
+        if not robot_checker.is_allowed():
+            # Display a message or take appropriate action
+            return None
+
         response = self.send_get_request(website_url)
         if response is None:
             return None

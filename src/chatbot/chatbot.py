@@ -13,5 +13,4 @@ class StreamHandler(BaseCallbackHandler):
         self.container.markdown(self.text)
 
 def initialize_chatbot(system_prompt):
-    llm_chain = create_model_chain(system_prompt)
-    return llm_chain
+    return create_model_chain(system_prompt)

@@ -1,4 +1,6 @@
 web_scraping_assistant
+├── .devcontainer
+│   └── devcontainer.json
 ├── .env
 ├── .gitignore
 ├── .streamlit
@@ -28,7 +30,8 @@ web_scraping_assistant
 │   ├── training_data
 │   │   └── training_data_goes_in this folder.txt
 │   └── transformed_data
-│       └── analyticsvidhya-1.txt
+│       ├── analyticsvidhya-1.txt
+│       └── transformed_data_goes_in this folder.txt
 ├── docs
 │   ├── .my_docs
 │   │   ├── LangChain for Web Scraping.docx
@@ -64,22 +67,33 @@ web_scraping_assistant
 │   └── llama-2-13b-chat.Q4_K_M.gguf
 ├── requirements.txt
 └── src
-    ├── ai-chatbot
+    ├── chatbot
     │   ├── README.md
-    │   └── ai-chatbot.py
+    │   ├── __init__.py
+    │   ├── chatbot.py
+    │   └── message_handling.py
     ├── common
     │   └── file_handling.py
+    ├── main.py
+    ├── model_handler
+    │   ├── __init__.py
+    │   └── model_handler.py
     ├── routes
     │   ├── __init__.py
     │   └── home.py
-    ├── start_flask.py
     ├── templates
     │   └── home.html
-    ├── web_scraping
-    │   ├── __init__.py
-    │   ├── data_preprocessing.py
-    │   ├── data_transformation.py
-    │   └── scraper.py
-    └── web_ui.py
+    ├── user_interface
+    │   ├── flask_ui.py
+    │   ├── start_flask.py
+    │   ├── ui_functions.py
+    │   └── web_ui_app.py
+    └── web_scraping
+        ├── __init__.py
+        ├── data_preprocessing.py
+        ├── data_scraping.py
+        ├── data_transformation.py
+        ├── validate_url_robot.py
+        └── verify_robot_txt.py
 
-Script last modified: 2023-11-20 19:54:37
+Script last modified: 2023-11-23 17:35:52

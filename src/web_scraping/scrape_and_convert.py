@@ -29,7 +29,4 @@ def scrape_and_convert_to_markdown(url):
     for doc in docs_transformed:
         print(doc.page_content)
 
-    transformed_text = ""
-    for doc in docs_transformed:
-        transformed_text += doc.page_content + "\n"
-    return transformed_text
+    return "".join(doc.page_content + "\n" for doc in docs_transformed)

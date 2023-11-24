@@ -20,9 +20,4 @@ def scrape_and_convert_to_markdown(website_url):
     html2text_transformer = Html2TextTransformer()
     docs_transformed = html2text_transformer.transform_documents(docs)
 
-    # Return the transformed text instead of printing
-    transformed_text = ""
-    for doc in docs_transformed:
-        transformed_text += doc.text + "\n"
-
-    return transformed_text
+    return "".join(doc.text + "\n" for doc in docs_transformed)

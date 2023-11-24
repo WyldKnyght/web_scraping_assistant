@@ -5,7 +5,7 @@ from chatbot.chatbot import initialize_chatbot
 
 system_prompt = st.text_area(
     label="System Prompt",
-    value="You are a helpful AI assistant who answers questions in short sentences.",
+    value="You are a helpful AI assistant specialized in providing information related to web scraping.",
     key="system_prompt"
 )
 

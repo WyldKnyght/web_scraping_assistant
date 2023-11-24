@@ -5,6 +5,7 @@ from common.file_handling import save_text_to_file
 import validators
 import requests
 import urllib.parse
+from web_scraping.scrape_and_convert import scrape_and_convert_to_markdown
 
 def get_web_url():
     # Get user input
@@ -36,12 +37,12 @@ def trigger_scraping(website_url, scrape_text, main_topic, main_topic_directory)
             {"role": "assistant", "content": "Let me fetch the data for you..."}
         )
 
-        # Call your web scraping functions here
-        # scraped_data_path = scraper.scrape_and_save_data(website_url, scrape_text)
-        # TODO Modify this part to perform your actual scraping logic
+        # Call the web scraping function
+        markdown_output = scrape_and_convert_to_markdown(website_url)
+
+        # TODO: Modify this part to perform your actual scraping logic
         # For now, let's display a test message
         st.success("Scraped Data Test Done")
-       
 
         # Save the main topic, you can use the save_text_to_file function
         main_topic_file_path = save_text_to_file(main_topic_directory, main_topic)
@@ -50,4 +51,5 @@ def trigger_scraping(website_url, scrape_text, main_topic, main_topic_directory)
         )
 
         # Display the scraped data using Streamlit elements
-        st.text("Display scraped data here") # You can modify this to show the actual scraped data
+        st.text("Display scraped data here:")  # You can modify this to show the actual scraped data
+        st.text_area("Scraped Markdown Content", markdown_output, height=300)

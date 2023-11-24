@@ -3,12 +3,14 @@
 import sys
 import os
 import streamlit as st
+import subprocess
 
 # Add the parent directory of 'chatbot' to the Python Path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from user_interface.ui_functions import validate_url, check_robots_txt
 from chatbot.chatbot import initialize_chatbot
+from web_scraping.scrape_and_convert import scrape_and_convert_to_markdown
 
 def main():
     # Set the webpage title
@@ -40,6 +42,13 @@ def main():
         else:
             st.write(f"No robots.txt file found at {web_url}")
 
+        # Call the web scraping function
+        markdown_output = scrape_and_convert_to_markdown(web_url)
+        print(markdown_output)  # print the return value of the function
+
+        # Display the scraped data using Streamlit elements
+        st.text_area("Scraped Markdown Content", markdown_output, height=300)
+
         # Initialize the chatbot only once when the app starts
         system_prompt = st.text_area(
             label="System Prompt",
@@ -47,6 +56,6 @@ def main():
             key="system_prompt"
         )
         initialize_chatbot(system_prompt)
-
+        
 if __name__ == '__main__':
     main()

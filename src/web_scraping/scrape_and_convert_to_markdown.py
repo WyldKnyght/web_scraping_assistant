@@ -51,11 +51,7 @@ def scrape_and_convert_to_markdown(url):
     html2text_transformer = Html2TextTransformer()
     docs_transformed = html2text_transformer.transform_documents(docs)
 
-    # Assign the transformed text to the 'transformed_text' variable
-    transformed_text = ""
-    for doc in docs_transformed:
-        transformed_text += doc.page_content + "\n"
-
+    transformed_text = "".join(doc.page_content + "\n" for doc in docs_transformed)
     # Save the markdown content to a file
     markdown_file_path = os.path.join('data', 'raw_data', 'scraped_content.md')
     try:

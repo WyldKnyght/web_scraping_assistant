@@ -78,22 +78,16 @@ web_scraping_assistant
     ├── model_handler
     │   ├── __init__.py
     │   └── model_handler.py
-    ├── routes
-    │   ├── __init__.py
-    │   └── home.py
-    ├── templates
-    │   └── home.html
     ├── user_interface
-    │   ├── flask_ui.py
-    │   ├── start_flask.py
     │   ├── ui_functions.py
     │   └── web_ui_app.py
     └── web_scraping
         ├── __init__.py
+        ├── convert_markdown_to_dataset.py
         ├── data_preprocessing.py
         ├── data_scraping.py
         ├── data_transformation.py
-        ├── validate_url_robot.py
-        └── verify_robot_txt.py
+        ├── scrape_and_convert.py
+        └── srcrape_web_structure.py
 
-Script last modified: 2023-11-23 17:35:52
+Script last modified: 2023-11-25 11:36:27

@@ -5,7 +5,7 @@ from common.file_handling import save_text_to_file
 import validators
 import requests
 import urllib.parse
-from web_scraping.scrape_and_convert import scrape_and_convert_to_markdown
+from web_scraping.scrape_and_convert_to_markdown import scrape_and_convert_to_markdown
 
 def get_web_url():
     # Get user input

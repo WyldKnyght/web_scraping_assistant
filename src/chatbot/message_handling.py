@@ -1,7 +1,11 @@
 # /src/chatbot/message_handling.py
 
 import streamlit as st
+import logging
 from chatbot.chatbot import initialize_chatbot
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
 
 system_prompt = st.text_area(
     label="System Prompt",
@@ -9,7 +13,11 @@ system_prompt = st.text_area(
     key="system_prompt"
 )
 
-llm_chain = initialize_chatbot(system_prompt)
+try:
+    llm_chain = initialize_chatbot(system_prompt)
+except Exception as e:
+    logging.error(f"Failed to initialize chatbot: {e}")
+    st.error("Failed to initialize chatbot. Please try again.")
 
 if "messages" not in st.session_state:
     st.session_state.messages = [
@@ -32,5 +40,11 @@ for message in st.session_state.messages:
 
 if user_prompt := st.chat_input("Your message here", key="user_input"):
     append_and_display_message("user", user_prompt)
-    response = llm_chain.invoke({"question": user_prompt})
+    try:
+        response = llm_chain.invoke({"question": user_prompt})
+    except Exception as e:
+        logging.error(f"Failed to get response from chatbot: {e}")
+        st.error("Failed to get response from chatbot. Please try again.")
     append_and_display_message("assistant", response)
+
+    st.session_state.current_response = response

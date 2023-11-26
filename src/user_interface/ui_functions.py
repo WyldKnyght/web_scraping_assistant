@@ -1,24 +1,30 @@
-# /src/user_interface/ui_functions.py
+# \src\user_interface\ui_functions.py
 
 import streamlit as st
-from common.file_handling import save_text_to_file
 import validators
 import requests
 import urllib.parse
-from web_scraping.scrape_and_convert_to_markdown import scrape_and_convert_to_markdown
+from urllib.parse import urlparse
 
 def get_web_url():
     # Get user input
     website_url = st.text_input("Enter website URL", "https://example.com")
-    scrape_text = st.checkbox("Scrape text", value=True)
-    return website_url, scrape_text
+    return website_url
 
-def get_main_topic():
-    # Get the main topic (label) from the user
-    return st.text_input("Add a main topic (label):")
+def get_website_name(website_url):
+    parsed_url = urlparse(website_url)
+    hostname = parsed_url.hostname if parsed_url.hostname else None
+    return hostname.replace('www.', '').replace('.com', '') if hostname else None
 
 def validate_url(url):
-    return validators.url(url)
+    if not url:
+        st.error("Please enter a URL.")
+        return False
+    elif validators.url(url):
+        return True
+    else:
+        st.error("Invalid URL. Please enter a valid URL.")
+        return False
 
 def check_robots_txt(url):
     try:
@@ -29,27 +35,3 @@ def check_robots_txt(url):
     except Exception as e:
         st.error(f"Error checking robots.txt: {str(e)}")
     return None
-
-def trigger_scraping(website_url, scrape_text, main_topic, main_topic_directory):
-    # Add a button to trigger scraping
-    if st.button("Scrape Data"):
-        st.session_state.messages.append(
-            {"role": "assistant", "content": "Let me fetch the data for you..."}
-        )
-
-        # Call the web scraping function
-        markdown_output = scrape_and_convert_to_markdown(website_url)
-
-        # TODO: Modify this part to perform your actual scraping logic
-        # For now, let's display a test message
-        st.success("Scraped Data Test Done")
-
-        # Save the main topic, you can use the save_text_to_file function
-        main_topic_file_path = save_text_to_file(main_topic_directory, main_topic)
-        st.session_state.messages.append(
-            {"role": "assistant", "content": f"Main topic saved to {main_topic_file_path}"}
-        )
-
-        # Display the scraped data using Streamlit elements
-        st.text("Display scraped data here:")  # You can modify this to show the actual scraped data
-        st.text_area("Scraped Markdown Content", markdown_output, height=300)

@@ -14,19 +14,22 @@ def create_directory(directory):
     except Exception as e:
         logging.error(f"Failed to create directory: {e}")
 
-def find_unique_file_name(directory, website_name):
-    # Find a unique file name
-    file_name = f"{website_name}-1.txt"
-    i = 1
-    while os.path.exists(os.path.join(directory, file_name)):
-        i += 1
-        file_name = f"{website_name}-{i}.txt"
+def find_unique_file_name(directory, base_name):
+    file_name = base_name
+    counter = 1
+
+    while os.path.exists(os.path.join(directory, f"{file_name}.md")):
+        file_name = f"{base_name}-{counter}"
+        counter += 1
+        logging.info(f"Checking for file {file_name}.md")
+
+    logging.info(f"Unique file name found: {file_name}")
     return file_name
 
-def save_text_to_file(file_path, text):
+def save_to_file(file_path, content):
     try:
         with open(file_path, 'w', encoding='utf-8') as file:
-            file.write(text)
-        logging.info(f"Text saved to file {file_path} successfully.")
+            file.write(content)
+        logging.info(f"Content saved to file {file_path} successfully.")
     except Exception as e:
-        logging.error(f"Failed to save text to file: {e}")
+        logging.error(f"Failed to save content to file: {e}")

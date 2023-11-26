@@ -1,12 +1,12 @@
-# /src/web_scraping/scrape_and_convert_to_markdown.py
+# \src\web_scraping\scrape_and_convert_to_markdown.py
 
 import requests
 import os
 import logging
-from bs4 import BeautifulSoup
 from langchain.document_transformers import Html2TextTransformer
 from langchain.document_loaders import AsyncHtmlLoader
-from common.file_handling import save_text_to_file
+from common.file_handling import save_to_file, find_unique_file_name
+from user_interface.ui_functions import get_website_name
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -35,15 +35,6 @@ def scrape_and_convert_to_markdown(url):
         logging.error(f"Something went wrong: {err}")
         return
 
-    html_content = response.text
-
-    # Parse HTML content using BeautifulSoup
-    try:
-        soup = BeautifulSoup(html_content, 'html.parser')
-    except Exception as e:
-        logging.error(f"Failed to parse HTML: {e}")
-        return
-
     # Convert HTML to Markdown using html2text
     urls = [url] # Correct the variable name and create a list
     loader = AsyncHtmlLoader(urls)
@@ -56,16 +47,18 @@ def scrape_and_convert_to_markdown(url):
     for doc in docs_transformed:
         transformed_text += doc.page_content + "\n"
 
-    # Save the markdown content to a file
-    markdown_file_path = os.path.join('data', 'raw_data', 'scraped_content.md')
+    # Get the website name
+    website_name = get_website_name(url)
+
+    # Save the markdown content to a file with .md extension
     try:
-        save_text_to_file(markdown_file_path, transformed_text)
+        unique_file_name = find_unique_file_name('data/raw_data', website_name)
+        save_to_file(os.path.join('data', 'raw_data', unique_file_name + ".md"), transformed_text)
     except Exception as e:
-        logging.error(f"Failed to save markdown content to file: {e}")
+        logging.error(f"Failed to save markdown file: {e}")
         return
 
     # Log the end of the function
     logging.info("Finished scrape_and_convert_to_markdown")
-
-    return transformed_text
-
+    
+    return unique_file_name

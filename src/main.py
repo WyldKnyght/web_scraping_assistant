@@ -1,4 +1,4 @@
-# /src/app/main.py
+# \src\main.py
 
 import subprocess
 

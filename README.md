@@ -1,9 +1,40 @@
 # Web Scraping Assistant
 
-## Project Description
-The goal of this project is to create a Web Scraping Assistant that will extract data from a website and convert it into a dataset that can be used to train LLMs. 
-The project is structured in a way that the extracted data is saved in the `data` folder, preprocessed data is saved in the `preprocessed_data` folder, and training data is saved in the `training_data` folder. 
-The `src` folder contains the source code for the project.
+# Project README
+
+## Overview
+This project comprises a Streamlit web application designed for efficient web scraping, markdown conversion, and dataset creation. Users can input a web URL, triggering a process that adeptly scrapes HTML content, converts it to Markdown, and further transforms it into a CSV dataset. The main functionalities are encapsulated in the following modules:
+
+### 1. `src/app/main.py`
+- Initiates the Streamlit web app.
+- Manages the execution of the web app process.
+
+### 2. `src/user_interface/web_ui.py`
+- Streamlit interface for user interaction.
+- Prompts users for a web URL and topic.
+- Performs web scraping and conversion functions.
+- Displays results using Streamlit elements.
+
+### 3. `src/user_interface/ui_functions.py`
+- Contains UI functions for user input and interaction.
+- Validates URLs, checks robots.txt, and triggers scraping.
+- Supports user prompts for website URL, main topic, and scraping preferences.
+
+### 4. `src/web_scraping/convert_markdown_to_dataset.py`
+- Converts Markdown content into a dataset.
+- Saves the dataset to a CSV file.
+
+### 5. `src/web_scraping/scrape_and_convert_to_markdown.py`
+- Fetches HTML content from a given URL.
+- Parses HTML using BeautifulSoup.
+- Converts HTML to Markdown using html2text.
+- Saves the Markdown content to a file.
+
+## Instructions for Launching the App
+1. Navigate to `/src/app/` and run `main.py` to start the Streamlit web app.
+2. Access the app via the provided URL.
+
+**Note:** Ensure dependencies are installed (`pip install -r requirements.txt`).
 
 This project is my submission for [Backdrop Build v2](https://backdropbuild.com/v2)
 
@@ -14,16 +45,6 @@ To get started with the Web Scraping Assistant, follow these steps:
 1. Clone the repository: `git clone https://github.com/WyldKnyght/web_scraping_assistant.git`
 2. Install the required packages: `pip install -r requirements.txt`
 3. Run the application: `python src/main.py`
-
-## Usage
-
-1. Open your web browser and navigate to the home page of the Web Scraping Assistant.
-2. Enter the URL of the website you want to scrape in the "Website URL" field.
-3. Check the "Scrape Text" checkbox if you want to scrape the text from the website.
-4. Click the "Scrape" button to start the scraping process.
-5. If the "Scrape Text" checkbox is checked, the scraped text will be saved to the `data/preprocessed_data` folder.
-6. The file name will be automatically generated based on the website name to ensure uniqueness.
-
 
 ## Roadmap
 

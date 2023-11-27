@@ -1,2 +1,4 @@
 [server]
 
+[browser]
+gatherUsageStats = false

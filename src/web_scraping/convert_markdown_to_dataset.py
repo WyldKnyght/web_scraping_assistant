@@ -16,12 +16,13 @@ from user_interface.ui_functions import get_web_url, get_website_name
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 
-def convert_markdown_to_dataset(unique_file_name):
+def convert_markdown_to_dataset(unique_file_name, url):
     # Log the start of the function
     logging.info("Starting convert_markdown_to_dataset")
 
     # Get the website name
-    website_name = get_website_name(get_web_url()) 
+    website_name = get_website_name(url)
+ 
 
     # Load the markdown content from the file
     markdown_file_path = os.path.join('data', 'raw_data', unique_file_name + '.md')

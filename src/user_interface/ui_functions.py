@@ -6,9 +6,9 @@ import requests
 import urllib.parse
 from urllib.parse import urlparse
 
-def get_web_url():
+def get_web_url(key):
     # Get user input
-    website_url = st.text_input("Enter website URL", "https://example.com")
+    website_url = st.text_input("Enter website URL", key=key)
     return website_url
 
 def get_website_name(website_url):

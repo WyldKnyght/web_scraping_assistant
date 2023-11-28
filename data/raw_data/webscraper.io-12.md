@@ -1,0 +1,93 @@
+Toggle navigation
+
+  * Web Scraper
+
+  * Cloud Scraper
+
+  * Pricing
+
+  * Learn
+
+    * Documentation
+    * Video Tutorials
+    * How to
+    * Test Sites
+    * Forum
+  * Install
+  * Cloud Login
+
+# Test Sites
+
+  * Home
+  * Phones __
+  * Computers __
+
+# E-commerce training site
+
+Welcome to WebScraper e-commerce site. You can use this site for training to
+learn how to use the Web Scraper. Items listed here are not for sale.
+
+## Top items being scraped right now
+
+#### $24.99
+
+####  Nokia 123
+
+7 day battery
+
+11 reviews
+
+#### $799.00
+
+####  Asus ROG STRIX...
+
+Asus ROG STRIX GL553VD-DM256, 15.6" FHD, Core i5-7300HQ, 8GB, 1TB, GeForce GTX
+1050 2GB, No OS
+
+7 reviews
+
+#### $1096.02
+
+####  Lenovo ThinkPa...
+
+Lenovo ThinkPad L460, 14" FHD IPS, Core i7-6600U, 8GB, 256GB SSD, Windows 10
+Pro
+
+14 reviews
+
+  * Products
+
+  * Web Scraper browser extension
+  * Web Scraper Cloud
+
+  * Company
+
+  * About us
+  * Contact
+  * Website Privacy Policy
+  * Browser Extension Privacy Policy
+  * Media kit
+  * Jobs
+
+  * Resources
+
+  * Blog
+  * Documentation
+  * Video Tutorials
+  * Screenshots
+  * Test Sites
+  * Forum
+  * Status
+
+  * CONTACT US
+
+  * info@webscraper.io
+  * Ubelu 5-71,  
+Adazi, Latvia, LV-2164
+
+  * __
+  * __
+
+Copyright (C) 2023 Web Scraper | All rights reserved
+
+

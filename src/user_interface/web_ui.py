@@ -7,7 +7,7 @@ import streamlit as st
 # Add the parent directory of 'src' to the Python Path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from user_interface.ui_functions import validate_url, check_robots_txt
+from user_interface.ui_functions import validate_url, check_robots_txt, get_web_url
 from web_scraping.scrape_and_convert_to_markdown import scrape_and_convert_to_markdown
 from web_scraping.convert_markdown_to_dataset import convert_markdown_to_dataset
 
@@ -18,43 +18,37 @@ def main():
     # Create a header element
     st.header("Web Scraping Assistant!")
 
-    # Initialize session state for web URL and topic
-    if 'web_url' not in st.session_state:
-        st.session_state['web_url'] = ''
+    # Create a form
+    with st.form(key="my_form", clear_on_submit=True):
+        # Get the URL from the user
+        url = st.text_input("Enter website URL", key="website_url_input")
 
-    # Function to clear the inputs
-    def clear_inputs():
-        st.session_state['web_url'] = ''
+        # Add a submit button
+        submitted = st.form_submit_button('Submit')
 
-    # Prompt the user for a web URL
-    st.session_state['web_url'] = st.text_input("Please enter a web URL:", value=st.session_state['web_url'])
+        if submitted:
+            if validate_url(url):
+                # Check robots.txt
+                robots_txt = check_robots_txt(url)
+                st.write(f"Robots.txt: {robots_txt}")
 
-    # Add a submit button
-    if st.button('Submit'):
-        # Validate the URL
-        if validate_url(st.session_state['web_url']):
-            st.write("URL is valid.")
-        else:
-            st.write("URL is invalid.")
-            return
+                # Scrape and convert to markdown
+                unique_file_name = scrape_and_convert_to_markdown(url)
+                if unique_file_name:
+                    st.success(f"Markdown file created: {unique_file_name}.md")
 
-        # Check the robots.txt file
-        robots_txt = check_robots_txt(st.session_state['web_url']) 
-        if robots_txt is not None:
-            st.write("Contents of robots.txt:")
-            st.write(robots_txt)
-        else:
-            st.write(f"No robots.txt file found at {st.session_state['web_url']}")
+                    # Convert markdown to dataset
+                    convert_markdown_to_dataset(unique_file_name, url) # Pass the url as an argument
+                    st.success(f"CSV dataset file created: {unique_file_name}.csv")
+                else:
+                    st.error("Failed to scrape and convert to markdown.")
 
-        # Call the web scraping function
-        unique_file_name = scrape_and_convert_to_markdown(st.session_state['web_url'])
-        st.session_state['unique_file_name'] = unique_file_name
+            else:
+                st.error("Invalid URL. Please enter a valid URL.")
 
-        # Convert the markdown content into a dataset
-        convert_markdown_to_dataset(st.session_state['unique_file_name'])
+    # Reset button
+    if st.button('Reset'):
+        st.experimental_rerun()
 
-    # Add a reset button
-    st.button('Reset', on_click=clear_inputs)
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

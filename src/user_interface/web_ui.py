@@ -18,6 +18,8 @@ def main():
     # Create a header element
     st.header("Web Scraping Assistant!")
 
+    unique_file_name = None
+
     # Create a form
     with st.form(key="my_form", clear_on_submit=True):
         # Get the URL from the user
@@ -49,6 +51,17 @@ def main():
     # Reset button
     if st.button('Reset'):
         st.experimental_rerun()
+
+    # Add a download button for the CSV file
+    if unique_file_name:
+        with open(os.path.join('data', 'training_data', unique_file_name + '.csv'), 'r') as file:
+            csv = file.read()
+        st.download_button(
+            label="Download CSV file",
+            data=csv,
+            file_name=f"{unique_file_name}.csv",
+            mime="text/csv",
+        )
 
 if __name__ == "__main__":
     main()

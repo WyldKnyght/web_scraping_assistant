@@ -1,7 +1,6 @@
 web_scraping_assistant
 ├── .devcontainer
 │   └── devcontainer.json
-├── .env
 ├── .gitignore
 ├── .streamlit
 │   └── config.toml
@@ -12,59 +11,23 @@ web_scraping_assistant
 │   ├── model_download.py
 │   └── secret_generator.py
 ├── data
-│   ├── labeled_data
 │   ├── links
 │   │   └── extracted_links_go_in this folder.txt
 │   ├── preprocessed_data
-│   │   ├── analyticsvidhya-1.txt
-│   │   ├── dev-1.txt
 │   │   └── preprocessed_data_goes_in this folder.txt
 │   ├── raw_data
-│   │   ├── analyticsvidhya-1.txt
-│   │   ├── dev-1.txt
-│   │   ├── edureka-1.txt
-│   │   ├── raw_data_goes_in this folder.txt
-│   │   └── scraperapi-1.txt
+│   │   └── raw_data_goes_in this folder.txt
 │   ├── summarized_data
 │   │   └── summarized_data_goes_in this folder.txt
 │   ├── training_data
 │   │   └── training_data_goes_in this folder.txt
 │   └── transformed_data
-│       ├── analyticsvidhya-1.txt
 │       └── transformed_data_goes_in this folder.txt
 ├── docs
-│   ├── .my_docs
-│   │   ├── LangChain for Web Scraping.docx
-│   │   ├── add LLM.txt
-│   │   ├── best_practices.txt
-│   │   ├── code_structure.txt
-│   │   ├── data_prep_for_ai
-│   │   ├── description_for_ai.txt
-│   │   ├── hardware_setup.txt
-│   │   ├── project steps.txt
-│   │   ├── project_description.txt
-│   │   ├── repo_description_1.md
-│   │   └── transform_data.txt
 │   ├── Roadmap.png
 │   ├── folder_structure.txt
-│   ├── langchain_results
 │   ├── outstanding_tasks.txt
 │   └── project_information.md
-├── models
-│   ├── CodeLlama-13B-Instruct-GGUF
-│   │   └── codellama-13b-instruct.Q4_K_M.gguf
-│   ├── Lalma-2-7B-chat-GGUF
-│   │   └── llama-2-7b-chat.Q4_K_M.gguf
-│   ├── Llama-2-13B-chat-GGUF
-│   ├── Llama-2-13B-chat-GPTQ
-│   │   ├── config.txt
-│   │   ├── config_old.txt
-│   │   ├── generation_config.txt
-│   │   ├── quantize_config.txt
-│   │   ├── special_tokens_map.txt
-│   │   ├── tokenizer.txt
-│   │   └── tokenizer_config.txt
-│   └── llama-2-13b-chat.Q4_K_M.gguf
 ├── requirements.txt
 └── src
     ├── chatbot
@@ -80,14 +43,10 @@ web_scraping_assistant
     │   └── model_handler.py
     ├── user_interface
     │   ├── ui_functions.py
-    │   └── web_ui_app.py
+    │   └── web_ui.py
     └── web_scraping
         ├── __init__.py
         ├── convert_markdown_to_dataset.py
-        ├── data_preprocessing.py
-        ├── data_scraping.py
-        ├── data_transformation.py
-        ├── scrape_and_convert.py
-        └── srcrape_web_structure.py
+        └── scrape_and_convert_to_markdown.py
 
-Script last modified: 2023-11-25 11:36:27
+Script last modified: 2023-11-28 12:20:04

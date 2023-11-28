@@ -1,9 +1,8 @@
 # \src\main.py
 
-import subprocess
+# \src\main.py
 
-# Start the Streamlit web app
-web_app_process = subprocess.Popen(['streamlit', 'run', 'src/user_interface/web_ui.py'])
+from user_interface.web_ui import main
 
-# Wait for the Streamlit web app to finish
-web_app_process.wait()
+if __name__ == "__main__":
+    main()

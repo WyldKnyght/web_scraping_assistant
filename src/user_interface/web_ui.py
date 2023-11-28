@@ -18,6 +18,9 @@ def main():
     # Create a header element
     st.header("Web Scraping Assistant!")
 
+    # Short introduction
+    st.write("Welcome to the Web Scraping Assistant! Enter a URL and let the tool do the rest.")
+
     unique_file_name = None
 
     # Create a form
@@ -62,6 +65,10 @@ def main():
             file_name=f"{unique_file_name}.csv",
             mime="text/csv",
         )
+    # Rest of your code...
+
+    # Detailed description
+    st.write("This powerful tool allows you to extract valuable data from any website with just a few clicks. It validates the URL, checks the website's robots.txt file for any restrictions, and then scrapes the website's content. The scraped content is converted into a Markdown file and then transformed into a CSV dataset. You can download this dataset directly from the app. Whether you're a data scientist looking for new data sources, a researcher gathering information, or a curious individual exploring the web, the Web Scraping Assistant is the perfect tool for you.")
 
 if __name__ == "__main__":
     main()

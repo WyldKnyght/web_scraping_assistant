@@ -7,13 +7,26 @@ from langchain.document_transformers import Html2TextTransformer
 from langchain.document_loaders import AsyncHtmlLoader
 from common.file_handling import save_to_file, find_unique_file_name
 from user_interface.ui_functions import get_website_name
+from transformers import pipeline
+import urllib.robotparser
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 
+# Initialize the NER model
+ner_model = pipeline("ner")
+
 def scrape_and_convert_to_markdown(url):
     # Log the start of the function
     logging.info("Starting scrape_and_convert_to_markdown")
+
+    # Check if the URL is allowed by the robots.txt file
+    rp = urllib.robotparser.RobotFileParser()
+    rp.set_url(url)
+    rp.read()
+    if not rp.can_fetch('*', url):
+        logging.error(f"URL is not allowed by robots.txt: {url}")
+        return
 
     # Fetch HTML content from the website
     headers = {
@@ -36,24 +49,25 @@ def scrape_and_convert_to_markdown(url):
         return
 
     # Convert HTML to Markdown using html2text
-    urls = [url] # Correct the variable name and create a list
+    urls = [url]
     loader = AsyncHtmlLoader(urls)
     docs = loader.load()
     html2text_transformer = Html2TextTransformer()
     docs_transformed = html2text_transformer.transform_documents(docs)
 
     # Assign the transformed text to the 'transformed_text' variable
-    transformed_text = ""
-    for doc in docs_transformed:
-        transformed_text += doc.page_content + "\n"
+    transformed_text = "\n".join(doc.page_content for doc in docs_transformed)
 
+    # Use the NER model to extract entities from the transformed text
+    entities = ner_model(transformed_text)
+    
     # Get the website name
     website_name = get_website_name(url)
 
     # Save the markdown content to a file with .md extension
     try:
         unique_file_name = find_unique_file_name('data/raw_data', website_name)
-        save_to_file(os.path.join('data', 'raw_data', unique_file_name + ".md"), transformed_text)
+        save_to_file(os.path.join('data', 'raw_data', unique_file_name + ".md"), transformed_text + "\n\n" + str(entities))
     except Exception as e:
         logging.error(f"Failed to save markdown file: {e}")
         return

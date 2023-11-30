@@ -7,7 +7,9 @@ web_scraping_assistant
 ├── LICENSE
 ├── README.md
 ├── admin
+│   ├── __init__.py
 │   ├── create_folder_structure.py
+│   ├── logo.py
 │   ├── model_download.py
 │   └── secret_generator.py
 ├── data
@@ -16,11 +18,26 @@ web_scraping_assistant
 │   ├── preprocessed_data
 │   │   └── preprocessed_data_goes_in this folder.txt
 │   ├── raw_data
-│   │   └── raw_data_goes_in this folder.txt
+│   │   ├── crawler-test-1.md
+│   │   ├── crawler-test-2.md
+│   │   ├── crawler-test.md
+│   │   ├── docs.streamlit.io-1.md
+│   │   ├── docs.streamlit.io.md
+│   │   ├── jcchouinard.md
+│   │   ├── raw_data_goes_in this folder.txt
+│   │   ├── stackoverflow.md
+│   │   └── webscraper.io.md
 │   ├── summarized_data
 │   │   └── summarized_data_goes_in this folder.txt
 │   ├── training_data
-│   │   └── training_data_goes_in this folder.txt
+│   │   ├── crawler-test-1.csv
+│   │   ├── crawler-test-2.csv
+│   │   ├── crawler-test.csv
+│   │   ├── docs.streamlit.io-1.csv
+│   │   ├── docs.streamlit.io.csv
+│   │   ├── stackoverflow.csv
+│   │   ├── training_data_goes_in this folder.txt
+│   │   └── webscraper.io.csv
 │   └── transformed_data
 │       └── transformed_data_goes_in this folder.txt
 ├── docs
@@ -28,8 +45,26 @@ web_scraping_assistant
 │   ├── folder_structure.txt
 │   ├── outstanding_tasks.txt
 │   └── project_information.md
+├── images
+│   └── my_logo.png
+├── models
+│   ├── CodeLlama-13B-Instruct-GGUF
+│   │   └── codellama-13b-instruct.Q4_K_M.gguf
+│   ├── Lalma-2-7B-chat-GGUF
+│   │   └── llama-2-7b-chat.Q4_K_M.gguf
+│   ├── Llama-2-13B-chat-GGUF
+│   ├── Llama-2-13B-chat-GPTQ
+│   │   ├── config.txt
+│   │   ├── config_old.txt
+│   │   ├── generation_config.txt
+│   │   ├── quantize_config.txt
+│   │   ├── special_tokens_map.txt
+│   │   ├── tokenizer.txt
+│   │   └── tokenizer_config.txt
+│   └── llama-2-13b-chat.Q4_K_M.gguf
 ├── requirements.txt
 └── src
+    ├── __init__.py
     ├── chatbot
     │   ├── README.md
     │   ├── __init__.py
@@ -40,8 +75,10 @@ web_scraping_assistant
     ├── main.py
     ├── model_handler
     │   ├── __init__.py
-    │   └── model_handler.py
+    │   ├── model_handler.py
+    │   └── text_classification.py
     ├── user_interface
+    │   ├── __init__.py
     │   ├── ui_functions.py
     │   └── web_ui.py
     └── web_scraping
@@ -49,4 +86,4 @@ web_scraping_assistant
         ├── convert_markdown_to_dataset.py
         └── scrape_and_convert_to_markdown.py
 
-Script last modified: 2023-11-28 12:20:04
+Script last modified: 2023-11-29 20:17:16

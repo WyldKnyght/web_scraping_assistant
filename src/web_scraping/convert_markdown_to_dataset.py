@@ -4,30 +4,17 @@ import os
 import sys
 import pandas as pd
 import logging
-from common.file_handling import find_unique_file_name
-from .scrape_and_convert_to_markdown import scrape_and_convert_to_markdown
+import model_handler.model_handler as llm_chain
+from common.file_handling import save_to_file
 from model_handler.text_classification import TextClassifier
-from transformers import pipeline
-
-# Add the parent directory of 'src' to the Python Path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from common.file_handling import save_to_file, find_unique_file_name
-from user_interface.ui_functions import get_web_url, get_website_name
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
-
-# Initialize the pipeline with the local model
-classifier = pipeline("text-classification", model="../models/llama-2-13b-chat.Q4_K_M.gguf", local_files_only=True)
 
 def convert_markdown_to_dataset(unique_file_name, url):
     # Log the start of the function
     logging.info("Starting convert_markdown_to_dataset")
 
-    # Get the website name
-    website_name = get_website_name(url)
- 
     # Load the markdown content from the file
     markdown_file_path = os.path.join('data', 'raw_data', unique_file_name + '.md')
 
@@ -43,8 +30,14 @@ def convert_markdown_to_dataset(unique_file_name, url):
         logging.error(f"Failed to create DataFrame: {e}")
         return
 
+    # Create an instance of the TextClassifier class
+    classifier = TextClassifier(str(llm_chain))
+
     # Classify the content
     categories = classifier.predict(markdown_content)
+
+    # Add the categories to the dataset
+    dataset['categories'] = categories
 
     # Save the dataset to a CSV file using the save_text_to_file function
     dataset_file_directory = os.path.join('data', 'training_data')
@@ -58,10 +51,5 @@ def convert_markdown_to_dataset(unique_file_name, url):
         return
 
     # Log the end of the function
+    print("Finished convert_markdown_to_dataset")
     logging.info("Finished convert_markdown_to_dataset")
-
-if __name__ == '__main__':
-    url = get_web_url()
-    unique_file_name = scrape_and_convert_to_markdown(url)
-    convert_markdown_to_dataset(unique_file_name)
-

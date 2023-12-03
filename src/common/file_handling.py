@@ -33,3 +33,21 @@ def save_to_file(file_path, content):
         logging.info(f"Content saved to file {file_path} successfully.")
     except Exception as e:
         logging.error(f"Failed to save content to file: {e}")
+
+def save_text_to_file(file_path, text):
+    try:
+        with open(file_path, 'w', encoding='utf-8') as file:
+            file.write(text)
+        logging.info(f"Text saved to file {file_path} successfully.")
+    except Exception as e:
+        logging.error(f"Failed to save text to file: {e}")
+        
+def save_to_json(file_path, json):
+    try:
+        with open(file_path, 'w') as json_file:
+            json_file.write(json)
+        logging.info(f"Data saved to JSON file {file_path} successfully.")
+    except Exception as e:
+        logging.error(f"Failed to save json to file: {e}")
+
+

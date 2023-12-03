@@ -43,7 +43,7 @@ if __name__ == "__main__":
     docs_dir = os.path.join(project_root, "docs")
     os.makedirs(docs_dir, exist_ok=True)  # Create docs directory if it doesn't exist
     output_filename = os.path.join(docs_dir, "folder_structure.txt")
-    excluded_dirs = {".git", ".chainlit", ".venv",".vs",".my_files",".idea", "__pycache__", "gradio_cached_examples", ".github"}
+    excluded_dirs = {".git", ".chainlit", ".venv",".vs",".my_files",".idea", "__pycache__", "gradio_cached_examples", ".github", ".devcontainer"}
 
     print(f"Project Folder Structure for: {os.path.basename(project_root)}")
     generate_folder_structure(project_root, output_file=output_filename, excluded_dirs=excluded_dirs)

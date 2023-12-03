@@ -1,22 +1,11 @@
 # \src\user_interface\ui_functions.py
 
 import streamlit as st
-import validators
 import requests
 import urllib.parse
 from urllib.parse import urlparse
 import urllib.robotparser
-
-def get_web_url(key):
-    # Get user input
-    website_url = st.text_input("Enter website URL", key=key)
-    return website_url
-
-def get_website_name(website_url):
-    parsed_url = urlparse(website_url)
-    hostname = parsed_url.hostname if parsed_url.hostname else None
-    return hostname.replace('www.', '').replace('.com', '') if hostname else None
-
+from common.file_handling import find_unique_file_name
 
 def validate_url(url):
     try:
@@ -25,8 +14,18 @@ def validate_url(url):
     except ValueError:
         return False
 
+def get_user_input_url():
+    url = st.text_input("Enter website URL", key="website_url_input")
+    return url
 
-import urllib.robotparser
+def get_website_name(url):
+    parsed_url = urlparse(url)
+    website_name = parsed_url.netloc
+    return website_name
+
+def unique_file_name(url):
+    website_name = get_website_name(url)
+    return find_unique_file_name('data/raw_data', website_name)
 
 def check_robots_txt(url):
     try:

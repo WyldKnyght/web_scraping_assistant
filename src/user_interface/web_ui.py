@@ -1,33 +1,32 @@
 # \src\user_interface\web_ui.py
 
-import sys
 import os
+import logging
+from langchain.document_loaders import web_base
 import streamlit as st
-
-# Add the parent directory to the Python Path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
-
-from user_interface.ui_functions import validate_url, check_robots_txt, get_web_url
+from user_interface.ui_functions import validate_url, check_robots_txt, get_user_input_url
 from web_scraping.scrape_and_convert_to_markdown import scrape_and_convert_to_markdown
 from web_scraping.convert_markdown_to_dataset import convert_markdown_to_dataset
+from web_scraping.analyze_website_structure import analyze_website_structure
+from web_scraping.get_website_elements import get_unique_elements
 
-def main():
-    # Set the webpage title
+def run_web_app():
+    logging.basicConfig(level=logging.INFO)
+
+    # Set the webpage title in the main script
     st.set_page_config(page_title="Web Scraping Assistant!")
 
+    url_from_user = get_user_input_url()
     # Create a header element
     st.header("Web Scraping Assistant!")
 
     # Short introduction
     st.write("Welcome to the Web Scraping Assistant! Enter a URL and let the tool do the rest.")
 
-    unique_file_name = None
-    
     # Create a form
     with st.form(key="my_form", clear_on_submit=True):
-        # Get the URL from the user
-        url = st.text_input("Enter website URL", key="website_url_input")
+        # Use the URL obtained from the user
+        url = url_from_user
 
         # Add a submit button
         submitted = st.form_submit_button('Submit')
@@ -38,17 +37,29 @@ def main():
                 robots_txt = check_robots_txt(url)
                 st.write(f"Robots.txt: {robots_txt}")
 
+                # Analyze website structure
+                analyze_website_structure(url)
+
+                # Get Website Elements
+                unique_elements = get_unique_elements(url)
+                if unique_elements:
+                    st.success(f"Unique Elements added to DB: {unique_elements}")
+
+                # After extracting unique elements, extract labels
+                unique_elements = get_unique_elements(url)
+                labels = [label[0] for label in unique_elements]
+
+
                 # Scrape and convert to markdown
-                unique_file_name = scrape_and_convert_to_markdown(url)
-                if unique_file_name:
-                    st.success(f"Markdown file created: {unique_file_name}.md")
+                unique_name = scrape_and_convert_to_markdown(url, labels)
+                if unique_name:
+                    st.success(f"Markdown file created: {unique_name}.md")
 
                     # Convert markdown to dataset
-                    convert_markdown_to_dataset(unique_file_name, url)  # Pass the url as an argument
-                    st.success(f"CSV dataset file created: {unique_file_name}.csv")
+                    convert_markdown_to_dataset(unique_name, url)  # Pass the URL as an argument
+                    st.success(f"CSV dataset file created: {unique_name}.csv")
                 else:
                     st.error("Failed to scrape and convert to markdown.")
-
             else:
                 st.error("Invalid URL. Please enter a valid URL.")
 
@@ -57,18 +68,17 @@ def main():
         st.experimental_rerun()
 
     # Add a download button for the CSV file
-    if unique_file_name:
-        with open(os.path.join('data', 'training_data', unique_file_name + '.csv'), 'r', encoding='utf-8') as file:
-            csv = file.read()
-        st.download_button(
-            label="Download CSV file",
-            data=csv,
-            file_name=f"{unique_file_name}.csv",
-            mime="text/csv",
-        )
-
-    # Detailed description
-    st.write("This powerful tool allows you to extract valuable data from any website with just a few clicks. It validates the URL, checks the website's robots.txt file for any restrictions, and then scrapes the website's content. The scraped content is converted into a Markdown file and then transformed into a CSV dataset. You can download this dataset directly from the app. Whether you're a data scientist looking for new data sources, a researcher gathering information, or a curious individual exploring the web, the Web Scraping Assistant is the perfect tool for you.")
-
-if __name__ == "__main__":
-    main()
+    if 'unique_name' in locals():
+        csv_file_path = os.path.join('data', 'training_data', f"{unique_name}.csv")
+        if os.path.exists(csv_file_path):
+            with open(csv_file_path, 'rb') as file:
+                st.download_button(
+                    label="Download CSV",
+                    data=file.read(),
+                    file_name=f"{unique_name}.csv",
+                    mime="text/csv"
+                )
+        else:
+            st.warning("CSV file not found.")
+            
+    return url_from_user

@@ -1,18 +1,21 @@
-# /src/model_handler/text_classification.py
+# \src\model_handler\text_classification.py
 
-from transformers import pipeline
-from transformers import AutoModelForSequenceClassification
+from model_handler.model_handler import create_model_chain
 
 class TextClassifier:
-    def __init__(self, model_path):
-        self.model = AutoModelForSequenceClassification.from_pretrained(
-            model_path,
-            local_files_only=True
-        )
+    def __init__(self, system_prompt):
+        self.model = create_model_chain(system_prompt)
 
     def predict(self, text):
-        # Use the model to predict the class of the text
-        result = self.model(text)
-        # Extract the predicted class from the result
-        predicted_class = result[0]['label']
-        return predicted_class
+        try:
+            # Check if the model is not None before calling it
+            if self.model:
+                result = self.model(text)
+                predicted_class = result[0]['label']
+                return predicted_class
+            else:
+                return None
+        except Exception as e:
+            # Handle exceptions gracefully
+            print(f"Error predicting class: {e}")
+            return None

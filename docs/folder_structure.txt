@@ -18,15 +18,8 @@ web_scraping_assistant
 │   ├── preprocessed_data
 │   │   └── preprocessed_data_goes_in this folder.txt
 │   ├── raw_data
-│   │   ├── crawler-test-1.md
-│   │   ├── crawler-test-2.md
-│   │   ├── crawler-test.md
-│   │   ├── docs.streamlit.io-1.md
-│   │   ├── docs.streamlit.io.md
-│   │   ├── jcchouinard.md
 │   │   ├── raw_data_goes_in this folder.txt
-│   │   ├── stackoverflow.md
-│   │   └── webscraper.io.md
+│   │   └── web_site_elements
 │   ├── summarized_data
 │   │   └── summarized_data_goes_in this folder.txt
 │   ├── training_data
@@ -83,7 +76,9 @@ web_scraping_assistant
     │   └── web_ui.py
     └── web_scraping
         ├── __init__.py
+        ├── analyze_website_structure.py
         ├── convert_markdown_to_dataset.py
+        ├── get_website_elements.py
         └── scrape_and_convert_to_markdown.py
 
-Script last modified: 2023-11-29 20:17:16
+Script last modified: 2023-12-01 20:39:34

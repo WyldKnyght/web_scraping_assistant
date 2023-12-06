@@ -1,6 +1,4 @@
 web_scraping_assistant
-├── .devcontainer
-│   └── devcontainer.json
 ├── .gitignore
 ├── .streamlit
 │   └── config.toml
@@ -15,27 +13,26 @@ web_scraping_assistant
 ├── data
 │   ├── links
 │   │   └── extracted_links_go_in this folder.txt
+│   ├── predicted_labels
+│   │   └── predicted_labels_goes_in_this_folder.txt
 │   ├── preprocessed_data
 │   │   └── preprocessed_data_goes_in this folder.txt
 │   ├── raw_data
+│   │   ├── html_data
+│   │   │   └── html_data_goes_in this folder.txt
 │   │   ├── raw_data_goes_in this folder.txt
 │   │   └── web_site_elements
+│   │       └── web_elements_data_goes_in this folder.txt
 │   ├── summarized_data
 │   │   └── summarized_data_goes_in this folder.txt
 │   ├── training_data
-│   │   ├── crawler-test-1.csv
-│   │   ├── crawler-test-2.csv
-│   │   ├── crawler-test.csv
-│   │   ├── docs.streamlit.io-1.csv
-│   │   ├── docs.streamlit.io.csv
-│   │   ├── stackoverflow.csv
-│   │   ├── training_data_goes_in this folder.txt
-│   │   └── webscraper.io.csv
+│   │   └── training_data_goes_in this folder.txt
 │   └── transformed_data
 │       └── transformed_data_goes_in this folder.txt
 ├── docs
 │   ├── Roadmap.png
 │   ├── folder_structure.txt
+│   ├── module_descriptions.md
 │   ├── outstanding_tasks.txt
 │   └── project_information.md
 ├── images
@@ -43,8 +40,6 @@ web_scraping_assistant
 ├── models
 │   ├── CodeLlama-13B-Instruct-GGUF
 │   │   └── codellama-13b-instruct.Q4_K_M.gguf
-│   ├── Lalma-2-7B-chat-GGUF
-│   │   └── llama-2-7b-chat.Q4_K_M.gguf
 │   ├── Llama-2-13B-chat-GGUF
 │   ├── Llama-2-13B-chat-GPTQ
 │   │   ├── config.txt
@@ -54,6 +49,8 @@ web_scraping_assistant
 │   │   ├── special_tokens_map.txt
 │   │   ├── tokenizer.txt
 │   │   └── tokenizer_config.txt
+│   ├── Lllma-2-7B-chat-GGUF
+│   │   └── llama-2-7b-chat.Q4_K_M.gguf
 │   └── llama-2-13b-chat.Q4_K_M.gguf
 ├── requirements.txt
 └── src
@@ -68,8 +65,7 @@ web_scraping_assistant
     ├── main.py
     ├── model_handler
     │   ├── __init__.py
-    │   ├── model_handler.py
-    │   └── text_classification.py
+    │   └── model_handler.py
     ├── user_interface
     │   ├── __init__.py
     │   ├── ui_functions.py
@@ -77,8 +73,10 @@ web_scraping_assistant
     └── web_scraping
         ├── __init__.py
         ├── analyze_website_structure.py
+        ├── convert_html_to_markdown.py
         ├── convert_markdown_to_dataset.py
         ├── get_website_elements.py
-        └── scrape_and_convert_to_markdown.py
+        ├── scrape_html.py
+        └── text_classification.py
 
-Script last modified: 2023-12-01 20:39:34
+Script last modified: 2023-12-04 16:24:50

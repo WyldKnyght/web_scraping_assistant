@@ -1,22 +1,20 @@
 # \src\web_scraping\convert_markdown_to_dataset.py
 
 import os
-import sys
 import pandas as pd
 import logging
-import model_handler.model_handler as llm_chain
-from common.file_handling import save_to_file
-from model_handler.text_classification import TextClassifier
+from common.file_handling import save_to_csv
+from web_scraping.text_classification import TextClassifier
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 
-def convert_markdown_to_dataset(unique_file_name, url):
+def convert_markdown_to_dataset(unique_filename, url):
     # Log the start of the function
     logging.info("Starting convert_markdown_to_dataset")
 
     # Load the markdown content from the file
-    markdown_file_path = os.path.join('data', 'raw_data', unique_file_name + '.md')
+    markdown_file_path = os.path.join('data', 'raw_data', unique_filename + '.md')
 
     with open(markdown_file_path, 'r') as file:
         markdown_content = file.read()
@@ -31,7 +29,7 @@ def convert_markdown_to_dataset(unique_file_name, url):
         return
 
     # Create an instance of the TextClassifier class
-    classifier = TextClassifier(str(llm_chain))
+    classifier = TextClassifier(str(), unique_filename)
 
     # Classify the content
     categories = classifier.predict(markdown_content)
@@ -39,13 +37,12 @@ def convert_markdown_to_dataset(unique_file_name, url):
     # Add the categories to the dataset
     dataset['categories'] = categories
 
-    # Save the dataset to a CSV file using the save_text_to_file function
+    # Save the dataset to a CSV file using the save_to_csv function
     dataset_file_directory = os.path.join('data', 'training_data')
-    dataset_file_name = unique_file_name # Use the same file name as the Markdown file
-    dataset_file_path = os.path.join(dataset_file_directory, dataset_file_name + '.csv')
+    dataset_file_path = os.path.join(dataset_file_directory, unique_filename + '.csv')
 
     try:
-        save_to_file(dataset_file_path, dataset.to_csv(index=False))
+        save_to_csv(dataset_file_path, dataset.to_csv(index=False))
     except Exception as e:
         logging.error(f"Failed to save dataset to CSV: {e}")
         return

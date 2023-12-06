@@ -19,10 +19,14 @@ def analyze_website_structure(url):
         else:
             result = 'Static (Use BeautifulSoup)'
 
-    except Exception as e:
-        result = 'Failed to analyze structure'
-        logging.error(f"Failed to analyze structure: {e}")
+        # Log the result if successful
+        logging.info(f"Finished analyze_website_structure: {result}")
+        return result
 
-    # Log the end of the function
-    logging.info(f"Finished analyze_website_structure: {result}")
-    return result
+    except Exception as e:
+        # Log the error separately if there's an issue
+        result = 'Failed to analyze structure'
+        logging.error(f"{result}: {e}")
+
+        # Return the result in case it's needed
+        return result

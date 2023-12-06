@@ -5,7 +5,6 @@ import requests
 import urllib.parse
 from urllib.parse import urlparse
 import urllib.robotparser
-from common.file_handling import find_unique_file_name
 
 def validate_url(url):
     try:
@@ -22,10 +21,6 @@ def get_website_name(url):
     parsed_url = urlparse(url)
     website_name = parsed_url.netloc
     return website_name
-
-def unique_file_name(url):
-    website_name = get_website_name(url)
-    return find_unique_file_name('data/raw_data', website_name)
 
 def check_robots_txt(url):
     try:

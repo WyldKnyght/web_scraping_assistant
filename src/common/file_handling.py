@@ -14,25 +14,28 @@ def create_directory(directory):
     except Exception as e:
         logging.error(f"Failed to create directory: {e}")
 
-def find_unique_file_name(directory, base_name):
-    file_name = base_name
+def find_unique_filename_from_url(directory, base_name):
+    unique_filename = base_name
     counter = 1
 
-    while os.path.exists(os.path.join(directory, f"{file_name}.md")):
-        file_name = f"{base_name}-{counter}"
+    while os.path.exists(os.path.join(directory, f"{unique_filename}.md")):
+        if counter > 1:
+            # If it's not the first iteration, append the counter to the base name
+            unique_filename = f"{base_name}-{counter}"
+
+        logging.info(f"Checking for file {unique_filename}.md")
         counter += 1
-        logging.info(f"Checking for file {file_name}.md")
 
-    logging.info(f"Unique file name found: {file_name}")
-    return file_name
+    logging.info(f"Unique file name found: {unique_filename}")
+    return unique_filename
 
-def save_to_file(file_path, content):
+def save_to_csv(file_path, content):
     try:
         with open(file_path, 'w', encoding='utf-8') as file:
             file.write(content)
-        logging.info(f"Content saved to file {file_path} successfully.")
+        logging.info(f"Content saved to CSV {file_path} successfully.")
     except Exception as e:
-        logging.error(f"Failed to save content to file: {e}")
+        logging.error(f"Failed to save content to CSV: {e}")
 
 def save_text_to_file(file_path, text):
     try:
@@ -50,4 +53,10 @@ def save_to_json(file_path, json):
     except Exception as e:
         logging.error(f"Failed to save json to file: {e}")
 
-
+def save_to_html(file_path, html):
+    try:
+        with open(file_path, 'w') as html:
+            html.write(html)
+        logging.info(f"Data saved to HTML file {file_path} successfully.")
+    except Exception as e:
+        logging.error(f"Failed to save HTML to file: {e}")

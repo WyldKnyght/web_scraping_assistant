@@ -3,5 +3,4 @@
 import streamlit as st
 
 def get_user_input_url():
-    url = st.text_input("Enter website URL")
-    return url
+    return st.text_input("Enter website URL")

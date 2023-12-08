@@ -39,8 +39,7 @@ class TextClassifier:
         tokens = word_tokenize(text)
         stop_words = set(stopwords.words('english'))
         tokens = [token for token in tokens if token.lower() not in stop_words]
-        processed_text = ' '.join(tokens)
-        return processed_text
+        return ' '.join(tokens)
 
     def save_predicted_label(self, predicted_label):
 

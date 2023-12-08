@@ -26,7 +26,7 @@ def get_labels(soup):
 def get_unique_elements(url, unique_filename):
     # Log the start of the function
     logging.info(f"Starting get_unique_elements for URL: {url}")
-    
+
     # Send a GET request to the website and get the HTML response
     response = requests.get(url)
 
@@ -49,7 +49,9 @@ def get_unique_elements(url, unique_filename):
         # Check if class_name is not None before processing
         if class_name is not None:
             # If the element class is not in the list, add it and the first element data to the list
-            if tuple(class_name) not in set(element[0] for element in unique_elements):
+            if tuple(class_name) not in {
+                element[0] for element in unique_elements
+            }:
                 unique_elements.append((tuple(class_name), element.text))
 
     # Save the dataset to a JSON file
@@ -64,6 +66,3 @@ def get_unique_elements(url, unique_filename):
         logging.error(f"Failed to save elements to JSON: {e}")
 
     return labels, unique_elements
-
-    # Log the end of the function
-    logging.info(f"Finished get_unique_elements for URL: {url}")

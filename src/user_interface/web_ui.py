@@ -22,10 +22,7 @@ def run_web_app():
         # Get URL from user input using the function
         url_from_user = st.text_input('Enter URL', '')
 
-        # Use st.form_submit_button() inside the form block
-        form_submitted = st.form_submit_button('Submit')
-
-        if form_submitted:
+        if form_submitted := st.form_submit_button('Submit'):
             handle_submitted_form(url_from_user)
 
     handle_reset_button()

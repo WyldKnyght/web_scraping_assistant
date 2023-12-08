@@ -38,8 +38,7 @@ class UniqueFilenameManager:
     @staticmethod
     def _get_base_name_from_url(url):
         extracted_info = tldextract.extract(url)
-        website_name = extracted_info.domain
-        return website_name
+        return extracted_info.domain
 
     @classmethod
     def _find_unique_filename(cls, directory_list, base_name, website_name):

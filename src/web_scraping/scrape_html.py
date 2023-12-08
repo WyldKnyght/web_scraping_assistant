@@ -32,7 +32,7 @@ def scrape_html(url, unique_filename):
         # Save the data to an HTML file using file_handling.py
         html_file_directory = os.path.join('data', 'scraped_data', 'html_data')
         html_file_name = unique_filename
-        html_file_path = os.path.join(html_file_directory, html_file_name + '.html')
+        html_file_path = os.path.join(html_file_directory, f'{html_file_name}.html')
 
         try:
             save_to_html(html_file_path, response.text)
@@ -44,6 +44,6 @@ def scrape_html(url, unique_filename):
     except Exception as e:
         logging.error(f"Error in scrape_html: {e}")
         return None
-    
+
     # Log the end of the function
     logging.info("Finished scraping HTML")

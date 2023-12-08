@@ -4,16 +4,29 @@ import os
 import requests
 from bs4 import BeautifulSoup
 import logging
-from ..common.file_handling import create_directory, save_to_json
+from common.unique_filename_manager import UniqueFilenameManager
+from common.create_directory import create_directory
+from common.save_to_file import save_to_json
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 
+labels = None
+
+
 def extract_labels(soup):
+    global labels
     labels = [tuple(element.get('class')) for element in soup.find_all() if element.get('class') is not None]
-    return list(set(labels))  # Return unique labels
+    return list(set(labels))
+
+def get_labels(soup):
+    labels = [tuple(element.get('class')) for element in soup.find_all() if element.get('class') is not None]
+    return list(set(labels))
 
 def get_unique_elements(url, unique_filename):
+    # Log the start of the function
+    logging.info(f"Starting get_unique_elements for URL: {url}")
+    
     # Send a GET request to the website and get the HTML response
     response = requests.get(url)
 
@@ -40,15 +53,17 @@ def get_unique_elements(url, unique_filename):
                 unique_elements.append((tuple(class_name), element.text))
 
     # Save the dataset to a JSON file
-    website_elements_file_directory = os.path.join('data', 'raw_data', 'web_site_elements')
-    create_directory(website_elements_file_directory)
-    website_elements_file_path = os.path.join(website_elements_file_directory, f"{unique_filename}.json")
+    website_elements_directory = os.path.join('data', 'scraped_data', 'website_elements')
+    create_directory(website_elements_directory)
+    website_elements_path = os.path.join(website_elements_directory, f"{unique_filename}.json")
 
     try:
-        save_to_json(website_elements_file_path, unique_elements)
+        with open(website_elements_path, 'w') as f:
+            save_to_json(website_elements_path, unique_elements)
     except Exception as e:
         logging.error(f"Failed to save elements to JSON: {e}")
 
-    # Log the end of the function
-    logging.info("Finished gathering elements")
     return labels, unique_elements
+
+    # Log the end of the function
+    logging.info(f"Finished get_unique_elements for URL: {url}")

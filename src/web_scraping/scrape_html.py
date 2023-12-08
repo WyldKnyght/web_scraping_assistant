@@ -4,14 +4,14 @@ import logging
 import os
 import requests
 import urllib.robotparser
-from common.file_handling import save_to_html
+from common.save_to_file import save_to_html
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 
 def scrape_html(url, unique_filename):
     # Log the start of the function
-    logging.info("Starting scrape_html")
+    logging.info(f"Starting scrape_html for URL: {url}")
 
     try:
         # Check if the URL is allowed by the robots.txt file
@@ -30,8 +30,8 @@ def scrape_html(url, unique_filename):
         response.raise_for_status()
 
         # Save the data to an HTML file using file_handling.py
-        html_file_directory = os.path.join('data', 'raw_data', 'html_data')
-        html_file_name = unique_filename(url)
+        html_file_directory = os.path.join('data', 'scraped_data', 'html_data')
+        html_file_name = unique_filename
         html_file_path = os.path.join(html_file_directory, html_file_name + '.html')
 
         try:
@@ -44,3 +44,6 @@ def scrape_html(url, unique_filename):
     except Exception as e:
         logging.error(f"Error in scrape_html: {e}")
         return None
+    
+    # Log the end of the function
+    logging.info("Finished scraping HTML")

@@ -1,18 +1,20 @@
 # \src\web_scraping\text_classification.py
 
 import os
+import logging
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
+from common.create_directory import create_directory
 
-# Import the unique_filename variable from web_ui.py
-from ..common.file_handling import unique_filename
+# Set up logging
+logging.basicConfig(level=logging.INFO)
 
 class TextClassifier:
     def __init__(self, labels, unique_filename):
         self.labels = labels
         self.vectorizer = TfidfVectorizer()
-        self.filename = unique_filename  # Assign the filename passed as an argument
+        self.filename = unique_filename
 
     def predict(self, text):
         try:
@@ -41,13 +43,16 @@ class TextClassifier:
         return processed_text
 
     def save_predicted_label(self, predicted_label):
+
         # Define the directory for saving predicted labels
-        prediction_directory = os.path.join('data', 'transformed_data', 'text_classification_predictions')
-        
-        # Use the passed filename as part of the unique filename
-        filename = f"{self.filename}-prediction"
+        prediction_directory = os.path.join('data', 'scraped_data', 'predicted_labels')
+        create_directory(prediction_directory)
 
         # Save the predicted label to a file
-        file_path = os.path.join(prediction_directory, unique_filename + '.txt')
-        with open(file_path, 'w') as file:
+        predicted_label_file_path = os.path.join(prediction_directory, f"{self.filename}.txt")
+        with open(predicted_label_file_path, 'w') as file:
             file.write(predicted_label)
+
+        # Log the end of the function
+        logging.info("Finished text classification")
+

@@ -11,24 +11,19 @@ web_scraping_assistant
 │   ├── model_download.py
 │   └── secret_generator.py
 ├── data
-│   ├── links
-│   │   └── extracted_links_go_in this folder.txt
-│   ├── predicted_labels
-│   │   └── predicted_labels_goes_in_this_folder.txt
-│   ├── preprocessed_data
-│   │   └── preprocessed_data_goes_in this folder.txt
-│   ├── raw_data
-│   │   ├── html_data
-│   │   │   └── html_data_goes_in this folder.txt
-│   │   ├── raw_data_goes_in this folder.txt
-│   │   └── web_site_elements
-│   │       └── web_elements_data_goes_in this folder.txt
-│   ├── summarized_data
-│   │   └── summarized_data_goes_in this folder.txt
-│   ├── training_data
-│   │   └── training_data_goes_in this folder.txt
-│   └── transformed_data
-│       └── transformed_data_goes_in this folder.txt
+│   └── scraped_data
+│       ├── dataset_data
+│       │   └── dataset_data_goes_in this folder.txt
+│       ├── html_data
+│       │   └── html_data_goes_in this folder.txt
+│       ├── markdown_data
+│       │   └── markdown_data_goes_in this folder.txt
+│       ├── predicted_labels
+│       │   └── predicted_labels_goes_in_this_folder.txt
+│       ├── text_classification_predictions
+│       │   └── text_classification_data_in_this_folder.txt
+│       └── website_elements
+│           └── web_elements_data_goes_in this folder.txt
 ├── docs
 │   ├── Roadmap.png
 │   ├── folder_structure.txt
@@ -61,14 +56,21 @@ web_scraping_assistant
     │   ├── chatbot.py
     │   └── message_handling.py
     ├── common
-    │   └── file_handling.py
+    │   ├── create_directory.py
+    │   ├── save_to_file.py
+    │   └── unique_filename_manager.py
     ├── main.py
     ├── model_handler
     │   ├── __init__.py
     │   └── model_handler.py
     ├── user_interface
     │   ├── __init__.py
-    │   ├── ui_functions.py
+    │   ├── ui_functions
+    │   │   ├── __init__.py
+    │   │   ├── check_robots.py
+    │   │   ├── get_user_input.py
+    │   │   ├── get_website_name.py
+    │   │   └── validate_url.py
     │   └── web_ui.py
     └── web_scraping
         ├── __init__.py
@@ -79,4 +81,4 @@ web_scraping_assistant
         ├── scrape_html.py
         └── text_classification.py
 
-Script last modified: 2023-12-04 16:24:50
+Script last modified: 2023-12-07 11:58:33

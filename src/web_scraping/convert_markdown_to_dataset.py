@@ -1,31 +1,22 @@
 # \src\web_scraping\convert_markdown_to_dataset.py
 
 import os
-import sys
 import pandas as pd
 import logging
-from common.file_handling import find_unique_file_name
-from .scrape_and_convert_to_markdown import scrape_and_convert_to_markdown
-
-# Add the parent directory of 'src' to the Python Path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
-from common.file_handling import save_to_file, find_unique_file_name
-from user_interface.ui_functions import get_web_url, get_website_name
+from common.save_to_file import save_to_csv
+from common.create_directory import create_directory
+from web_scraping.text_classification import TextClassifier
+from web_scraping.get_website_elements import get_unique_elements
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 
-def convert_markdown_to_dataset(unique_file_name, url):
-    # Log the start of the function
-    logging.info("Starting convert_markdown_to_dataset")
+def convert_markdown_to_dataset(url, unique_filename, markdown_content):
 
-    # Get the website name
-    website_name = get_website_name(url)
- 
+    labels, _ = get_unique_elements(url, unique_filename)
 
     # Load the markdown content from the file
-    markdown_file_path = os.path.join('data', 'raw_data', unique_file_name + '.md')
+    markdown_file_path = os.path.join('data', 'scraped_data', 'markdown_data', unique_filename + '.md')
 
     with open(markdown_file_path, 'r') as file:
         markdown_content = file.read()
@@ -39,22 +30,27 @@ def convert_markdown_to_dataset(unique_file_name, url):
         logging.error(f"Failed to create DataFrame: {e}")
         return
 
-    # Save the dataset to a CSV file using the save_text_to_file function
-    dataset_file_directory = os.path.join('data', 'training_data')
-    dataset_file_name = unique_file_name # Use the same file name as the Markdown file
-    dataset_file_path = os.path.join(dataset_file_directory, dataset_file_name + '.csv')
+    # Create an instance of the TextClassifier class
+    classifier = TextClassifier(labels, unique_filename)
+
+    # Classify the content
+    categories = classifier.predict(markdown_content)
+
+    # Add the categories to the dataset
+    dataset['categories'] = categories
+
+    # Save the dataset to a CSV file using the save_to_csv function
+    dataset_file_directory = os.path.join('data', 'scraped_data', 'dataset_data')
+    create_directory(dataset_file_directory)
+    dataset_file_path = os.path.join(dataset_file_directory, unique_filename + '.csv')
 
     try:
-        save_to_file(dataset_file_path, dataset.to_csv(index=False))
+        save_to_csv(dataset_file_path, dataset.to_csv(index=False))
+        return True
     except Exception as e:
         logging.error(f"Failed to save dataset to CSV: {e}")
-        return
+        return False
 
     # Log the end of the function
     logging.info("Finished convert_markdown_to_dataset")
-
-if __name__ == '__main__':
-    url = get_web_url()
-    unique_file_name = scrape_and_convert_to_markdown(url)
-    convert_markdown_to_dataset(unique_file_name)
 

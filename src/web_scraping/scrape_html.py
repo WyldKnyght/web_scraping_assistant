@@ -33,7 +33,7 @@ def scrape_html(url, unique_filename):
         # Save the data to an HTML file
         html_file_directory = os.path.join('data', 'scraped_data', 'html_data')
         html_file_name = unique_filename
-        html_file_path = os.path.join(html_file_directory, html_file_name + '.html')
+        html_file_path = os.path.join(html_file_directory, f'{html_file_name}.html')
 
         try:
             create_directory(html_file_directory)

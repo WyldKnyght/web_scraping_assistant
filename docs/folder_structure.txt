@@ -7,23 +7,35 @@ web_scraping_assistant
 ├── admin
 │   ├── __init__.py
 │   ├── create_folder_structure.py
+│   ├── future_updates
+│   │   ├── chatbot
+│   │   │   ├── README.md
+│   │   │   ├── __init__.py
+│   │   │   ├── chatbot.py
+│   │   │   └── message_handling.py
+│   │   └── model_handler
+│   │       ├── __init__.py
+│   │       └── model_handler.py
 │   ├── logo.py
 │   ├── model_download.py
 │   └── secret_generator.py
 ├── data
 │   └── scraped_data
 │       ├── dataset_data
-│       │   └── dataset_data_goes_in this folder.txt
+│       │   ├── webscraper-1.csv
+│       │   └── ~ dataset_data_goes_in this folder.txt
 │       ├── html_data
-│       │   └── html_data_goes_in this folder.txt
+│       │   ├── webscraper-1.html
+│       │   └── ~ html_data_goes_in this folder.txt
 │       ├── markdown_data
-│       │   └── markdown_data_goes_in this folder.txt
+│       │   ├── webscraper-1.md
+│       │   └── ~ markdown_data_goes_in this folder.txt
 │       ├── predicted_labels
-│       │   └── predicted_labels_goes_in_this_folder.txt
-│       ├── text_classification_predictions
-│       │   └── text_classification_data_in_this_folder.txt
+│       │   ├── webscraper-1.txt
+│       │   └── ~ predicted_labels_goes_in_this_folder.txt
 │       └── website_elements
-│           └── web_elements_data_goes_in this folder.txt
+│           ├── webscraper-1.json
+│           └── ~ web_elements_data_goes_in this folder.txt
 ├── docs
 │   ├── Roadmap.png
 │   ├── folder_structure.txt
@@ -50,19 +62,12 @@ web_scraping_assistant
 ├── requirements.txt
 └── src
     ├── __init__.py
-    ├── chatbot
-    │   ├── README.md
-    │   ├── __init__.py
-    │   ├── chatbot.py
-    │   └── message_handling.py
     ├── common
     │   ├── create_directory.py
     │   ├── save_to_file.py
+    │   ├── unique_filename_manager-old.py
     │   └── unique_filename_manager.py
     ├── main.py
-    ├── model_handler
-    │   ├── __init__.py
-    │   └── model_handler.py
     ├── user_interface
     │   ├── __init__.py
     │   ├── ui_functions
@@ -77,8 +82,9 @@ web_scraping_assistant
         ├── analyze_website_structure.py
         ├── convert_html_to_markdown.py
         ├── convert_markdown_to_dataset.py
+        ├── get_labels.py
         ├── get_website_elements.py
         ├── scrape_html.py
         └── text_classification.py
 
-Script last modified: 2023-12-07 11:58:33
+Script last modified: 2023-12-08 16:30:48

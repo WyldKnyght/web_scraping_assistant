@@ -1,11 +1,10 @@
-# \src\web_scraping\text_classification.py
-
 import os
 import logging
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
 from common.create_directory import create_directory
+from common.save_to_file import save_to_file
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -32,7 +31,7 @@ class TextClassifier:
             self.save_predicted_label(predicted_label)
             return predicted_label
         except Exception as e:
-            print(f"Error predicting class: {e}")
+            logging.error(f"Error predicting class: {e}")
             return None
 
     def preprocess(self, text):
@@ -43,16 +42,19 @@ class TextClassifier:
         return processed_text
 
     def save_predicted_label(self, predicted_label):
+        try:
+            # Define the directory for saving predicted labels
+            prediction_directory = os.path.join('data', 'scraped_data', 'predicted_labels')
+            create_directory(prediction_directory)
 
-        # Define the directory for saving predicted labels
-        prediction_directory = os.path.join('data', 'scraped_data', 'predicted_labels')
-        create_directory(prediction_directory)
+            # Save the predicted label to a file using the save_to_file function
+            predicted_label_file_path = os.path.join(prediction_directory, f"{self.filename}.txt")
+            
+            # Fix the function call by adding 'txt' as the file_extension
+            save_to_file(predicted_label_file_path, predicted_label, 'txt')
 
-        # Save the predicted label to a file
-        predicted_label_file_path = os.path.join(prediction_directory, f"{self.filename}.txt")
-        with open(predicted_label_file_path, 'w') as file:
-            file.write(predicted_label)
+            # Log the end of the function
+            logging.info("Finished text classification")
 
-        # Log the end of the function
-        logging.info("Finished text classification")
-
+        except Exception as e:
+            logging.error(f"Error saving predicted label: {e}")

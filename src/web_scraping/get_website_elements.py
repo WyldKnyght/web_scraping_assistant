@@ -2,31 +2,29 @@
 
 import os
 import requests
+import json
 from bs4 import BeautifulSoup
 import logging
-from common.unique_filename_manager import UniqueFilenameManager
 from common.create_directory import create_directory
-from common.save_to_file import save_to_json
+from common.save_to_file import save_to_file
+from .get_labels import get_labels
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 
-labels = None
+# Function to extract information from HTML and create a list of dictionaries
+def extract_html_info(element):
+    tag_name = element.name
+    attributes = dict(element.attrs)
+    sub_elements = [extract_html_info(sub_elem) for sub_elem in element.find_all(recursive=False)]
+    return {'tag_name': tag_name, 'attributes': attributes, 'sub_elements': sub_elements}
 
-
-def extract_labels(soup):
-    global labels
-    labels = [tuple(element.get('class')) for element in soup.find_all() if element.get('class') is not None]
-    return list(set(labels))
-
-def get_labels(soup):
-    labels = [tuple(element.get('class')) for element in soup.find_all() if element.get('class') is not None]
-    return list(set(labels))
+# Function to write data to a file
+def write_to_file(data, file_path):
+    with open(file_path, 'w') as file:
+        json.dump(data, file, indent=2)
 
 def get_unique_elements(url, unique_filename):
-    # Log the start of the function
-    logging.info(f"Starting get_unique_elements for URL: {url}")
-    
     # Send a GET request to the website and get the HTML response
     response = requests.get(url)
 
@@ -34,36 +32,17 @@ def get_unique_elements(url, unique_filename):
     soup = BeautifulSoup(response.content, 'html.parser')
 
     # Extract labels and unique elements
-    labels = extract_labels(soup)
+    labels = get_labels(soup)
 
-    # Get all the elements on the page
-    all_elements = soup.find_all()
+    # Extract information from HTML
+    extracted_data = [extract_html_info(top_level_element) for top_level_element in soup.find_all(recursive=False)]
 
-    # Create an empty list to store the unique elements
-    unique_elements = []
-
-    # Loop through all the elements and check if the element class is already in the list
-    for element in all_elements:
-        class_name = element.get('class')
-
-        # Check if class_name is not None before processing
-        if class_name is not None:
-            # If the element class is not in the list, add it and the first element data to the list
-            if tuple(class_name) not in set(element[0] for element in unique_elements):
-                unique_elements.append((tuple(class_name), element.text))
-
-    # Save the dataset to a JSON file
+    # Write data to a file
     website_elements_directory = os.path.join('data', 'scraped_data', 'website_elements')
     create_directory(website_elements_directory)
     website_elements_path = os.path.join(website_elements_directory, f"{unique_filename}.json")
+    
+    # Save extracted_data to JSON file using the new function
+    save_to_file(website_elements_path, extracted_data, 'json')
 
-    try:
-        with open(website_elements_path, 'w') as f:
-            save_to_json(website_elements_path, unique_elements)
-    except Exception as e:
-        logging.error(f"Failed to save elements to JSON: {e}")
-
-    return labels, unique_elements
-
-    # Log the end of the function
-    logging.info(f"Finished get_unique_elements for URL: {url}")
+    return labels, extracted_data
